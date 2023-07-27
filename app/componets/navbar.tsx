@@ -30,7 +30,7 @@ export default function NavBar() {
             </Typography>
         </div>
         <div className='flex flex-row gap-1 justify-center w-[90%] place-items-center md:justify-center md:place-items-center md:w-[60%]'>
-            <List className="flex-row">
+            <List className="flex-row gap-2">
                 {
                     data.map((links)=>(
                     <LinkItem key={links.name}>
