@@ -23,7 +23,7 @@ const data = [
 
 export default function NavBar() {
   return (
-    <div className='flex flex-row shadow mx-auto h-[60px] bg-[#00091A]'>
+    <div className='fixed z-10 flex flex-row w-full shadow mx-auto h-[60px] bg-[#00091A]'>
         <div className='flex flex-row gap-1 w-[10%] justify-start place-items-center md:justify-center md:place-items-center md:w-[40%]'>
             <Typography variant="h4" className="text-bold text-gray-400">
                 Octaven
