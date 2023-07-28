@@ -55,7 +55,7 @@ export default function Patients() {
   return (
     <>
          <NavBar />
-        <div className="relative flex flex-col mx-auto m-4 top-20 md:h-auto md:w-[80%] md:m-[0] md:p-8 ">
+        <div className="relative flex flex-col mx-auto p-8 top-20 md:h-auto md:m-[0] md:p-8 ">
             <div className='flex flex-row'>
                 <div className='w-2/4 flex flex-col'>
                     <Typography varient="h3" className="text-gray-900 text-bold text-2xl">

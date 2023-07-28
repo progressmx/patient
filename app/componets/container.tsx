@@ -17,12 +17,12 @@ export default function PatientContainer(props: objType)
                     <ConatinerBody className=" md:w-[30%]">{patient.paymentMethod}</ConatinerBody>
                     <ConatinerBody className=" md:w-[30%]">{patient.createdOn}</ConatinerBody>
                     <ConatinerBody className=" md:w-[10%]">
-                        <Button className="bg-green-500">
+                        <Button className="bg-green-500 p-1">
                             Edit <AiOutlineEdit className='w-5 h-5'></AiOutlineEdit>
                         </Button>
                     </ConatinerBody>
                     <ConatinerBody className="md:w-[10%]">
-                        <Button className="bg-red-500">
+                        <Button className="bg-red-500 p-1">
                             Delete <AiOutlineDelete className='w-5 h-5'></AiOutlineDelete>
                         </Button>
                     </ConatinerBody>

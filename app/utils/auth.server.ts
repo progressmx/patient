@@ -129,7 +129,7 @@ export async function requireUserId(request: Request, redirectTo: string = new U
 {
     const session = await getUserSession(request)
     const userId = session.get('userId')
-    if (!userId || typeof userId !== 'number') {
+    if (!userId || typeof userId !== 'string') {
       const searchParams = new URLSearchParams([['redirectTo', redirectTo]])
       throw redirect(`/login?${searchParams}`)
     }
@@ -154,14 +154,14 @@ async function getUserId(request: Request)
 export async function getUser(request: Request)
 {
     const userId = await getUserId(request)
-    if (typeof userId !== 'number') {
+    if (typeof userId !=='string') {
       return null
     }
   
     try {
       const user = await prisma.user.findUnique({
         where: { id: userId },
-        select: { id: true, email: true, profile: true },
+        select: { id: true, email: true},
       })
       return user
     } catch {
@@ -170,7 +170,7 @@ export async function getUser(request: Request)
 }
 export async function getPatients(ownerID: number)
 {
-    if (typeof ownerID !== 'number') 
+    if (typeof ownerID !== 'string') 
     {
       return null
     }
