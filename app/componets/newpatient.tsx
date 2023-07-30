@@ -25,25 +25,25 @@ const text_fields = [
 const visit_reason = [
     {
         label:"Consultation",
-        value:"consult"
+        value:"Consultation"
     },
     {
         label:"Check-up",
-        value:"check"
+        value:"Check-up"
     },
     {
-        label:"Bill payment",
-        value:"bill"
+        label:"Bill Payment",
+        value:"Bill Payment"
     },
 ]
 const payment_method = [
     {
         label:"Cash",
-        value:"cash"
+        value:"Cash"
     },
     {
         label:"Medical AID",
-        value:"medicalAid"
+        value:"Medical AID"
     },
 ]
 
