@@ -13,7 +13,7 @@ export type PatientForm =
     dobStr: string,
     reason: string,
     payment: string,
-    userId: number,
+    userId: string,
 }
 
 export type LoginForm = 

@@ -168,22 +168,22 @@ export async function getUser(request: Request)
       throw logout(request)
     }
 }
-export async function getPatients(ownerID: number)
+export async function getPatients(ownerID: string)
 {
     if (typeof ownerID !== 'string') 
     {
       return null
     }
-    console.log("owner id : ",ownerID)
+    // console.log("owner id : ",ownerID)
   
     try {
 
-        console.log("patient found")
+        // console.log("patient found")
       const patient = await prisma.patient.findMany({
         where: { createdBy: ownerID },
         select: { id: true, firstName: true,lastName: true,paymentMethod:true,reason:true,createdOn:true },
       })
-      console.log("patients : ",patient)
+    //   console.log("patients : ",patient)
       return patient
 
     } catch {

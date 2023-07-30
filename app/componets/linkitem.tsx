@@ -7,7 +7,7 @@ type Children =
 function LinkItem(props: Children) {
   return (
     <>
-        <li className={'flex text-white text-sm hover:cursor-pointer hover:bg-gray-500 rounded hover:text-black '}>
+        <li className={'flex text-sm hover:cursor-pointer hover:bg-gray-500 rounded hover:text-black '+props.className}>
             {props.children}
         </li>
     </>

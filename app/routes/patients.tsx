@@ -54,7 +54,7 @@ export default function Patients() {
 
   return (
     <>
-         <NavBar />
+        <NavBar />
         <div className="relative flex flex-col mx-auto p-8 top-20 md:h-auto md:m-[0] md:p-8 ">
             <div className='flex flex-row'>
                 <div className='w-2/4 flex flex-col'>
@@ -67,7 +67,7 @@ export default function Patients() {
                 </div>
                 <div className='flex justify-end w-2/4'>
                     <button onClick={handleOpen} className='flex flex-row bg-blue-800 gap-2 w-[50%] justify-center place-items-center h-8 md:p-4 md:w-[40%] rounded text-white'>
-                        {!open? <>Add new <BsFillPersonPlusFill/></>: <>View <BsFillEyeFill/></>}
+                        {!open? <>New <BsFillPersonPlusFill/></>: <>View <BsFillEyeFill/></>}
                     </button>
                 </div>
             </div>
