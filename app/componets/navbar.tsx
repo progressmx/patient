@@ -28,9 +28,9 @@ export default function NavBar() {
     const handleMobile = () => setOpen(!open);
 
   return (
-    <div className='fixed z-10 flex flex-row gap-x-20 w-full shadow mx-auto h-[60px] bg-[#00091A]'>
+    <div className='fixed z-10 flex flex-row gap-x-20 w-full shadow mx-auto h-[60px] bg-blue-800 mb-32'>
         <div className='flex flex-row gap-1 px-2 w-[10%] justify-start place-items-center md:justify-center md:place-items-center md:w-[40%]'>
-            <Typography variant="h4" className="text-bold text-gray-400">
+            <Typography variant="h4" className="text-bold text-white">
                 Octaven
             </Typography>
         </div>
@@ -38,7 +38,7 @@ export default function NavBar() {
             <List className="flex-row gap-2">
                 {
                     data.map((links)=>(
-                    <LinkItem key={links.name} className='p-[5px] text-white'>
+                    <LinkItem key={links.name} className='p-[5px] text-sm text-white hover:bg-blue-400 rounded hover:text-black'>
                         <links.icon className='w-5 h-5 mr-2' />
                         <NavLink to={links.link}>{links.name}</NavLink>
                     </LinkItem>
@@ -46,7 +46,7 @@ export default function NavBar() {
                 }
                 <form action="./logout" method="post">
                     <button className="bg-transparent">
-                        <LinkItem className='p-[5px] text-white'>
+                        <LinkItem className='p-[5px] text-sm text-white hover:bg-blue-400 rounded hover:text-black'>
                         <AiOutlineLogout className='w-5 h-5 mr-2' />
                             log out
                         </LinkItem>
@@ -61,15 +61,15 @@ export default function NavBar() {
             <List className="flex-col gap-2">
                     {
                         data.map((links)=>(
-                        <LinkItem key={links.name} className='p-[5px] text-black w-full'>
+                        <LinkItem key={links.name} className='p-[5px] w-full text-sm text-black hover:bg-blue-400 rounded hover:text-white'>
                             <links.icon className='w-5 h-5 mr-2' />
                             <NavLink to={links.link}>{links.name}</NavLink>
                         </LinkItem>
                         ))
                     }
                     <form action="./logout" method="post">
-                        <button className="bg-transparent">
-                            <LinkItem className='p-[5px] text-black w-full'>
+                        <button className="bg-transparent p-[5px] w-full text-sm text-black hover:bg-blue-400 rounded hover:text-white">
+                            <LinkItem className=''>
                             <AiOutlineLogout className='w-5 h-5 mr-2' />
                                 log out
                             </LinkItem>
