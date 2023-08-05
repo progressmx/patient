@@ -45,7 +45,7 @@ export default function TabData(props: tabsChildren) {
               </div> 
             </>}
       </div>
-      <div className={open? `md:hidden absolute right-0 top-12 rounded-lg p-4 ${props.className} bg-white shadow mr-4 md:hidden`:"hidden md:hidden"}>
+      <div className={open? `md:hidden absolute right-0 top-20 rounded-lg p-4 ${props.className} bg-white shadow mr-4 md:hidden`:"hidden md:hidden"}>
           <List className="grid grid-cols-3 gap-3">
               {
                   props.tab_header.map((tabs)=>(
