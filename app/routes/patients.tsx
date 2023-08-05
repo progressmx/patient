@@ -11,28 +11,6 @@ import { ActionFunction , json} from '@remix-run/node';
 import { validateEmail,validatePassword,validateName} from '~/utils/validator.server';
 import NavBar from '~/componets/navbar';
 
-const patients = [
-    {
-      fullName: "John Michael",
-      reason: "Consultation",
-      date: "23/04/18",
-    },
-    {
-      fullName: "Peter Rabbit",
-      reason: "Bill payment",
-      date: "23/04/18",
-    },
-    {
-      fullName: "John Chibadura",
-      reason: "Review",
-      date: "23/04/18",
-    },
-    {
-      fullName: "Lil Tunechi",
-      reason: "Consultation",
-      date: "23/04/18",
-    },
-  ];
 
 
 export const loader: LoaderFunction = async({request})=>
