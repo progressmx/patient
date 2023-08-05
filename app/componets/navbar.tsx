@@ -67,7 +67,7 @@ export default function NavBar() {
                         </LinkItem>
                         ))
                     }
-                    <form action="./logout" method="post">
+                    <form action="/logout" method="post">
                         <button className="bg-transparent p-[5px] w-full text-sm text-black hover:bg-blue-400 rounded hover:text-white">
                             <LinkItem className=''>
                             <AiOutlineLogout className='w-5 h-5 mr-2' />
