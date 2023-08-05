@@ -34,18 +34,18 @@ export default function TabData(props: tabsChildren) {
       <div className='flex flex-row p-4 w-[100%] justify-end place-content-end text-2xl md:hidden'>
           {!open? 
             <>
-              <div className='bg-white  flex justify-center place-items-center w-10 h-10 rounded-full hover:bg-gray-500'>'
+              <div className='bg-white  flex justify-center place-items-center w-10 h-10 rounded-full hover:bg-gray-500'>
                 <AiOutlineMenu className='text-black' onClick={handleMobile}/>
               </div> 
             </>
             : 
             <>
-              <div className='bg-white  flex justify-center place-items-center w-10 h-10 rounded-full hover:bg-gray-500'>'
+              <div className='bg-white  flex justify-center place-items-center w-10 h-10 rounded-full hover:bg-gray-500'>
                 <AiOutlineClose className='text-black' onClick={handleMobile}/>
               </div> 
             </>}
       </div>
-      <div className={open? `md:hidden absolute rounded p-4 ${props.className} bg-white shadow mr-4 md:hidden`:"hidden md:hidden"}>
+      <div className={open? `md:hidden absolute right-0 top-12 rounded-lg p-4 ${props.className} bg-white shadow mr-4 md:hidden`:"hidden md:hidden"}>
           <List className="grid grid-cols-3 gap-3">
               {
                   props.tab_header.map((tabs)=>(
