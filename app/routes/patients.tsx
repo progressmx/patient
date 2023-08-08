@@ -3,7 +3,7 @@ import { Typography,Button,Dialog} from '@material-tailwind/react'
 import { useState } from 'react'
 import { LoaderFunction,} from "@remix-run/node";
 import { getPatients, requireUserId, registerPatient} from "~/utils/auth.server";
-import { BsFillPersonPlusFill, BsFillEyeFill} from 'react-icons/bs'
+import {AiOutlinePlus, AiOutlineMinus} from 'react-icons/ai'
 import PatientContainer from '~/componets/container';
 import NewPatient from '~/componets/newpatient';
 import { Form , useNavigation,useActionData,useLoaderData} from "@remix-run/react";
@@ -27,29 +27,31 @@ export default function Patients() {
     const handleOpen = () => setOpen(!open);
 
     const {patient} = useLoaderData()
+    const numberofPatients = patient.length
 
     // console.log("pat : ",patient)
 
   return (
     <>
-        <NavBar />
-        <div className="relative flex flex-col mx-auto p-8 top-20 md:h-auto md:m-[0] md:p-8 ">
-            <div className='flex flex-row'>
-                <div className='w-2/4 flex flex-col'>
-                    <Typography varient="h3" className="text-gray-900 text-bold text-2xl">
-                        {!open? "My patients":""}
+        <div className="relative w-[90%] bg-white rounded-md lg:left-[25vw] lg:w-[65vw] flex flex-col mx-auto p-4 top-32 md:h-auto lg:m-[0] md:p-4 ">
+            <div className='md:mx-auto md:w-full gap-6 p-4  md:flex-row md:border-b-[1px] md:border-gray-400'>
+                <div className='w-full flex flex-col'>
+                    <Typography varient="h3" className="flex flex-row gap-1 text-gray-900 text-bold text-2xl">
+                        <p>{!open? "My patients":"Add new patient"}</p>
+                        <p className="flex justify-center place-items-center text-sm px-2 md:text-xs rounded-full bg-gray-400 ">
+                            {numberofPatients < 2?`${numberofPatients} patient` : `${numberofPatients} patients`}
+                        </p>
+                        <button onClick={handleOpen} className='text-sm md:text-xs'>
+                            {!open? 
+                                <><AiOutlinePlus className='bg-gray-800 justify-center h-5 w-5 place-items-center rounded-full text-white'/></>
+                                : <><AiOutlineMinus className='bg-gray-800 justify-center h-5 w-5 place-items-center rounded-full text-white'/></>
+                            }
+                        </button>
+                        
                     </Typography>
-                    <Typography varient="lead" className="text-gray-900 opacity-80">
-                    {!open? " List of all the patients you captured":""}
-                    </Typography>
-                </div>
-                <div className='flex justify-end w-2/4'>
-                    <button onClick={handleOpen} className='flex flex-row bg-blue-800 gap-2 w-[50%] justify-center place-items-center h-8 md:p-4 md:w-[40%] rounded text-white'>
-                        {!open? <>New <BsFillPersonPlusFill/></>: <>View <BsFillEyeFill/></>}
-                    </button>
                 </div>
             </div>
-            <div>
+            <div className=''>
                 {!open? <PatientContainer data={patient} /> : <NewPatient />}
             </div>
         </div>

@@ -33,7 +33,7 @@ export default function Signin() {
                     <input type="hidden" name="__action" value="register" />
                     <Button type="submit">login</Button>
                     <Typography>
-                        Don't have an account ? <a href="/join" className='text-blue-400'>Create account</a>
+                        Dont have and account ? <a href="/join" className='text-blue-400'>Create account</a>
                     </Typography>
                 </div>
             </Form>

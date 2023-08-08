@@ -22,7 +22,7 @@ export default function join() {
                     <Input label="email" name="email" required></Input>
                     <Input type="password" label="password" name="password" required></Input>
                     <input type="hidden" name="__action" value="register" />
-                    <Button type="submit">Sign up</Button>
+                    <Button type="submit">login</Button>
                     <Typography>
                         Already have an account ? <a href="/login" className='text-blue-400'>Login</a>
                     </Typography>

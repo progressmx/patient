@@ -14,6 +14,10 @@ import Tabs from '~/componets/tabs';
 import TabData from '~/componets/tabData';
 import Summary from '~/componets/PatientComponents/summary';
 import {FaRegStickyNote} from 'react-icons/fa' 
+import Sidenav from '~/componets/sidenav';
+import SideNavContainer from '~/componets/sidenavcontainer';
+import Vitals from '~/componets/PatientComponents/vitals';
+
 
 const tabHead = [
   {
@@ -52,6 +56,10 @@ const patientComponets = [
   {
     label:"summary",
     component:Summary
+  },
+  {
+    label:"vitals",
+    component:Vitals
   }
 ]
 
@@ -69,8 +77,7 @@ export default function patientFile() {
     const {patient} = useLoaderData()
   return (
     <>
-      <NavBar />
-      <div className="relative top-32 w-[100%] mx-auto md:mx-auto md:w-[80%]">
+      <div className="relative top-32 lg:top-24 rounded-lg lg:left-[10vw] w-[100%] lg:w-[75vw] mx-auto md:mx-auto md:w-full">
         <Tabs>
             <TabData tab_header={tabHead} tab_body={patientComponets} className='p-1 mx-auto'>
             </TabData>
