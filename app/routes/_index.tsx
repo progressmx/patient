@@ -9,6 +9,7 @@ import { json } from "react-router-dom";
 
 export const loader: LoaderFunction = async({request})=>
 {
+  await requireUserId(request)
   const userId = await getUser(request)
   return json({userId})
 }
@@ -16,10 +17,13 @@ export const loader: LoaderFunction = async({request})=>
 export default function Index() {
 
   const {userId} = useLoaderData()
-  const name = userId.fullName.split(" ")
 
   return (
     <>
+      <NavBar />
+      <Sidenav>
+        <SideNavContainer/>
+      </Sidenav>
       <div className='relative top-20 left-[20%] h-auto w-[80%] p-8 flex flex-col'>
         <h2>Hello user with {userId.fullName} </h2>
       </div>

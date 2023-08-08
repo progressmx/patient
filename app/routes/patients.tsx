@@ -10,7 +10,8 @@ import { Form , useNavigation,useActionData,useLoaderData} from "@remix-run/reac
 import { ActionFunction , json} from '@remix-run/node';
 import { validateEmail,validatePassword,validateName} from '~/utils/validator.server';
 import NavBar from '~/componets/navbar';
-
+import SideNavContainer from "~/componets/sidenavcontainer";
+import Sidenav from "~/componets/sidenav";
 
 
 export const loader: LoaderFunction = async({request})=>
@@ -29,10 +30,12 @@ export default function Patients() {
     const {patient} = useLoaderData()
     const numberofPatients = patient.length
 
-    // console.log("pat : ",patient)
-
   return (
     <>
+        <NavBar />
+        <Sidenav>
+            <SideNavContainer/>
+        </Sidenav>
         <div className="relative w-[90%] bg-white rounded-md lg:left-[25vw] lg:w-[65vw] flex flex-col mx-auto p-4 top-32 md:h-auto lg:m-[0] md:p-4 ">
             <div className='md:mx-auto md:w-full gap-6 p-4  md:flex-row md:border-b-[1px] md:border-gray-400'>
                 <div className='w-full flex flex-col'>

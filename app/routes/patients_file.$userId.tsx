@@ -77,6 +77,10 @@ export default function patientFile() {
     const {patient} = useLoaderData()
   return (
     <>
+      <NavBar />
+      <Sidenav>
+        <SideNavContainer/>
+      </Sidenav>
       <div className="relative top-32 lg:top-24 rounded-lg lg:left-[10vw] w-[100%] lg:w-[75vw] mx-auto md:mx-auto md:w-full">
         <Tabs>
             <TabData tab_header={tabHead} tab_body={patientComponets} className='p-1 mx-auto'>
