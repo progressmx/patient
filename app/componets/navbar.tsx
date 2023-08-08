@@ -8,11 +8,10 @@ import {BiChevronDown,BiChevronUp,BiSearchAlt2} from "react-icons/bi"
 import {AiOutlineHome,AiOutlineCalendar,AiOutlinePieChart,AiOutlineLogout,AiOutlineClose,AiOutlineMenu} from "react-icons/ai"
 import { NavLink } from "@remix-run/react";
 import {Input, Avatar} from '@material-tailwind/react';
-
-type Name = 
-{
-    name ?:string
-}
+import { LoaderFunction } from "@remix-run/node";
+import { requireUserId,getUser } from "~/utils/auth.server";
+import { useLoaderData } from "@remix-run/react";
+import { json } from "react-router-dom";
 
 
 const data = [
@@ -44,10 +43,23 @@ const data = [
 ]
 
 
-export default function NavBar(props: Name) {
+export const loaderUser: LoaderFunction = async({request})=>
+{
+    await requireUserId(request)
+    const userDetails = await getUser(request)
+    console.log("user data top : ",userDetails)
+    return json({userDetails})
+}
+
+export default function NavBar() {
 
     const [open, setOpen] = useState(false);
     const handleMobile = () => setOpen(!open);
+
+    const userDetails = useLoaderData()
+
+    console.log("user data : ",userDetails)
+    // const name = userDetails.fullName.split(" ")
 
   return (
     <div className='fixed top-4 lg:left-[22vw] left-4 right-4 rounded-lg lg:w-[75%] z-10 flex flex-row gap-x-20 shadow mx-auto h-[60px] bg-white mb-32'>
@@ -62,7 +74,7 @@ export default function NavBar(props: Name) {
             </div>
             <div className='bg-[#0068ff] flex justify-center place-content-center place-items-center w-8 h-8 rounded-full text-white'>
                 <p className=' font-semibold text-[16px]'>
-                    {props.name}
+                    {/* {name[0][0]} */} T
                 </p>
             </div>
             <div className='lg:hidden'>

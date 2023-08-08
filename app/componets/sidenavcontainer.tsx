@@ -9,7 +9,7 @@ import {AiOutlineHome,AiOutlineCalendar,AiOutlinePieChart,AiOutlineLogout} from 
 import { NavLink } from "@remix-run/react";
 import { useState} from "react";
 import { useLocation } from "@remix-run/react";
-
+import { useLoaderData } from "@remix-run/react";
 
 
 const data = [
