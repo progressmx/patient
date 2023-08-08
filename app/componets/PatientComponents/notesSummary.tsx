@@ -1,29 +1,54 @@
 import React from 'react'
 import { Notes } from '../types'
 import { BsFillPersonPlusFill, BsFillEyeFill} from 'react-icons/bs'
-import {BiExpandAlt} from 'react-icons/bi'
+import {BiExpandAlt,BiPlus} from 'react-icons/bi'
 import {LiaTimesSolid} from 'react-icons/lia'
+import SummaryCard from './summaryCard'
+import CardBody from './cardBody'
+import CardFooter from './cardFooter'
+import CardHeader from './cardHeader'
+import CardContent from './cardContent'
+
 export default function NotesSummary(props: Notes) {
   return (
-    <div className='flex flex-col md:flex-row mt-6 gap-4 md:gap-2'>
+    <SummaryCard>
+      <CardHeader className='text-[#0068ff]'>
+        <h3 className='text-lg font-bold '>Notes</h3>
+        <div className=' flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-300'>
+              <BiExpandAlt className='w-5 h-5'/>
+          </div>
+      </CardHeader>
+
          {
             props.notes.map((note) => (
-                <div key={note.title} className={`flex flex-col justify-left place-content-left
-                 mx-auto md:mx-2 w-[90%] md:w-[25%] p-2
-                 bg-white rounded-3xl ${props.className}`}
-                 >
-                    <p className='text-lg ml-4 md:text-l font-semibold text-gray-900'>{note.title} Title</p>
-                    <p className='ml-4 text-gray-800'>{note.note}</p>
-                    
-                    <div className='flex flex-row gap-2 mt-8 p-1 text-black justify-end place-content-end'>
-                       <div className='bg-gray-300  flex justify-center place-items-center w-8 h-8 rounded-full hover:bg-gray-300'><BiExpandAlt className='w-5 h-5 '/></div>
-                       <div className='bg-gray-300 flex justify-center place-items-center w-8 h-8 rounded-full hover:bg-gray-300'> <LiaTimesSolid className='w-5 h-5 ' /></div>
-                    </div>
-                </div>
+                <CardBody key={note.title} className='border-b-[1px] border-gray-200'>
+                  <CardContent className='flex-col'>
+                      <p className='text-sm font-semibold ml-4 text-gray-900'>
+                        {note.title} Title
+                      </p>
+                      <p className='ml-4 text-gray-900 text-xs opacity-80'>{note.date}</p>
+                  </CardContent>
+                  <CardContent className='text-black justify-end place-content-end'>
+                      <div className='bg-gray-300  flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-100'>
+                        <BiExpandAlt className='w-5 h-5 '/>
+                      </div>
+                      <div className='bg-gray-300 flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-100'>
+                        <LiaTimesSolid className='w-5 h-5 ' />
+                      </div>
+                  </CardContent>
+                </CardBody>
                 
             ))
         }
+      <CardFooter>
+        <div className='bg-gray-300 flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-100'>
+          <BiPlus className='w-5 h-5 ' />
+        </div>
+        <p className='text-[#0068ff] text-sm font-bold'>
+          add new note
+        </p>
+      </CardFooter>
        
-    </div>
+    </SummaryCard>
   )
 }

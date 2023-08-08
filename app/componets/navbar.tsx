@@ -4,8 +4,16 @@ import List from "~/componets/list";
 import LinkItem from "~/componets/linkitem";
 import {FiUsers} from "react-icons/fi"
 import {FaUsersCog} from "react-icons/fa"
+import {BiChevronDown,BiChevronUp,BiSearchAlt2} from "react-icons/bi"
 import {AiOutlineHome,AiOutlineCalendar,AiOutlinePieChart,AiOutlineLogout,AiOutlineClose,AiOutlineMenu} from "react-icons/ai"
 import { NavLink } from "@remix-run/react";
+import {Input, Avatar} from '@material-tailwind/react';
+
+type Name = 
+{
+    name ?:string
+}
+
 
 const data = [
   {
@@ -18,46 +26,52 @@ const data = [
       link:"/patients",
       icon:FiUsers
   },
+  {
+      name:"Appointments",
+      link:"#",
+      icon:AiOutlineCalendar
+  },
+  {
+      name:"Reports",
+      link:"#",
+      icon:AiOutlinePieChart
+  },
+  {
+      name:"Users",
+      link:"#",
+      icon:FaUsersCog
+  },
 ]
 
 
-export default function NavBar() {
-
+export default function NavBar(props: Name) {
 
     const [open, setOpen] = useState(false);
     const handleMobile = () => setOpen(!open);
 
   return (
-    <div className='fixed z-10 flex flex-row gap-x-20 w-full shadow mx-auto h-[60px] bg-blue-800 mb-32'>
+    <div className='fixed top-4 lg:left-[22vw] left-4 right-4 rounded-lg lg:w-[75%] z-10 flex flex-row gap-x-20 shadow mx-auto h-[60px] bg-white mb-32'>
         <div className='flex flex-row gap-1 px-2 w-[10%] justify-start place-items-center md:justify-center md:place-items-center md:w-[40%]'>
-            <Typography variant="h4" className="text-bold text-white">
+            <Typography variant="h4" className="text-bold text-[#0068ff]">
                 Octaven
             </Typography>
         </div>
-        <div className='hidden md:flex md:flex-row md:gap-1 w-[90%] place-items-center md:justify-center md:place-items-center md:w-[60%]'>
-            <List className="flex-row gap-2">
-                {
-                    data.map((links)=>(
-                    <LinkItem key={links.name} className='p-[5px] text-sm text-white hover:bg-blue-400 rounded hover:text-black'>
-                        <links.icon className='w-5 h-5 mr-2' />
-                        <NavLink to={links.link}>{links.name}</NavLink>
-                    </LinkItem>
-                    ))
-                }
-                <form action="./logout" method="post">
-                    <button className="bg-transparent">
-                        <LinkItem className='p-[5px] text-sm text-white hover:bg-blue-400 rounded hover:text-black'>
-                        <AiOutlineLogout className='w-5 h-5 mr-2' />
-                            log out
-                        </LinkItem>
-                    </button>
-                </form>
-            </List>
+        <div className='flex flex-row gap-2 justify-end place-items-center w-[90%] md:w-[60%] px-2 md:px-4 lg:pr-10'>
+            <div>
+                <Input placeholder="search a patient" icon={<BiSearchAlt2 className='w-5 h-5 rounded-3xl' />} />
+            </div>
+            <div className='bg-[#0068ff] flex justify-center place-content-center place-items-center w-8 h-8 rounded-full text-white'>
+                <p className=' font-semibold text-[16px]'>
+                    {props.name}
+                </p>
+            </div>
+            <div className='lg:hidden'>
+                {!open? 
+                    <BiChevronDown className='text-[#0068ff] hover:cursor-pointer font-semibold h-8 w-8 p-1 rounded-full' onClick={handleMobile}/>
+                    :<BiChevronUp className='text-[#0068ff] hover:cursor-pointer h-8 w-8 p-1 rounded-full' onClick={handleMobile}/>}
+            </div>
         </div>
-        <div className='flex flex-row p-4 w-[100%] justify-end place-content-end text-2xl md:hidden'>
-                {!open? <AiOutlineMenu className='text-white' onClick={handleMobile}/>:<AiOutlineClose className='text-white' onClick={handleMobile}/>}
-        </div>
-        <div className={open? "absolute flex flex-col right-0 top-12 p-4 rounded-lg bg-white shadow mr-4 md:hidden": "hidden md:hidden" }>
+        <div className={open? "absolute flex flex-col right-0 top-12 p-4 rounded-lg bg-white shadow-md mr-4 lg:hidden": "hidden lg:hidden" }>
             <List className="flex-col gap-2">
                     {
                         data.map((links)=>(

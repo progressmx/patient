@@ -1,24 +1,26 @@
-import React from "react"
+import React,{useState} from "react"
 import type { objType } from "./types"
 import ConatinerBody from "./conatinerbody"
 import {AiOutlineDelete, AiOutlineEdit} from "react-icons/ai"
 import { Typography} from "@material-tailwind/react"
 import Button from "./button"
-import { useNavigate,NavLink } from "@remix-run/react"
-
+import { useNavigate,NavLink} from "@remix-run/react"
+import { BsFillPersonPlusFill, BsFillEyeFill} from 'react-icons/bs'
 
 
 export default function PatientContainer(props: objType)
 {
-
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(!open);
     const navigate = useNavigate()
+    const numberofPatients = props.data.length
 
   return (
 
-    <div className='flex flex-col gap-4 m-2 mt-6 p-2  md:p-6 md:mx-auto md:m-12'>
+    <div className=''>
         {
             props.data.map((patient)=>(
-                <div key={patient.id} className="flex bg-white rounded-md flex-col md:mx-auto md:w-[80%] gap-6 p-4  md:flex-row">
+                <div key={patient.id} className="flex bg-[#e6e6e6] rounded-md flex-col m-4 md:mx-auto md:w-full gap-6 p-4  md:flex-row">
                     <ConatinerBody className="flex flex-col md:w-[30%]">
                         <p className="text-lg md:text-sm font-semibold leading-6 text-gray-900">
                             {patient.firstName} {patient.lastName}

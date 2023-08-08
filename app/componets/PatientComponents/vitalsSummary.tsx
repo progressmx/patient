@@ -1,19 +1,47 @@
 import React from 'react'
-import { bundle } from '../types'
+import { Bundle } from '../types'
+import {BiExpandAlt,BiPlus} from 'react-icons/bi'
+import SummaryCard from './summaryCard'
+import CardBody from './cardBody'
+import CardFooter from './cardFooter'
+import CardHeader from './cardHeader'
+import CardContent from './cardContent'
 
-export default function VitalsSummary(props: bundle) {
+
+export default function VitalsSummary(props: Bundle) {
   return (
-    <div className='flex flex-row gap-2 md:gap-4 w-full '>
+    <SummaryCard>
+        <CardHeader className='text-[#0068ff]'>
+          <h3 className='text-lg font-bold '>Vitals</h3>
+          <div className=' flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-300'>
+                <BiExpandAlt className='w-5 h-5'/>
+          </div>
+        </CardHeader>
         {
             props.input_bundle.map((vitals) => (
-                <div key={vitals.name} className={`flex flex-col justify-center place-content-center place-items-center
-                 w-[35%] md:w-[20%] bg-white rounded-3xl p-6 ${props.className}`}>
-                    <p className='mt-1 text-sm md:text-sm leading-5 text-gray-700'>{vitals.name}</p>
-                    <p className='text-sm md:text-xl font-semibold text-gray-900'>{vitals.label}</p>
-                </div>
+                <CardBody key={vitals.name} >
+                  <CardContent>
+                     <p className='flex flex-row w-full justify-start place-items-center gap-2 text-sm font-semibold ml-4 text-gray-700'>
+                        <vitals.icon className='w-5 h-5'/> {vitals.name}
+                    </p>
+                  </CardContent>
+                   <CardContent className=' text-black justify-end place-content-end'>
+                      <p className='text-sm font-semibold ml-4 text-gray-900'>
+                        {vitals.label}
+                      </p>
+                   </CardContent>
+                </CardBody>
             ))
         }
-    </div>
+        <CardFooter>
+          <div className='bg-gray-300 flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-100'>
+            <BiPlus className='w-5 h-5 ' />
+          </div>
+          <p className='text-[#0068ff] text-sm font-bold'>
+            record new vitals
+          </p>
+      </CardFooter>
+    </SummaryCard>
   )
 }
 

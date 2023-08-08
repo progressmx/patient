@@ -19,6 +19,14 @@ export type bundle = {
         label:string
     }[]
 }
+export type Bundle = {
+    className?: string,
+    input_bundle:{
+        name:string
+        label:string
+        icon:IconType
+    }[]
+}
 export type select_bundle={
     name:string
     label?:string

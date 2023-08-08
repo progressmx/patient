@@ -13,14 +13,14 @@ export default function TabData(props: tabsChildren) {
     const handleMobile = () => setOpen(!open);
   return (
     <div className='flex flex-col gap-4 w-full'>
-      <div className={`hidden md:flex md:flex-row md:justify-center md:place-content-center ${props.className}`}>
+      <div className={`hidden  md:rounded-lg md:w-full  md:flex md:flex-row md:justify-center md:place-content-center ${props.className}`}>
           <List className="flex-row gap-2">
               {
                   props.tab_header.map((tabs)=>(
                   <LinkItem 
                   key={tabs.label} 
                   onClick={() => setActiveTab(tabs.route)}
-                  className={activeTab === tabs.route?'bg-[#f4f4f4] p-[5px] px-4 md:px-2 rounded-full py-2': "p-[5px] px-2 md:px-4  bg-gray-400 text-black rounded-full py-2" }>
+                  className={activeTab === tabs.route?'bg-[#0068ff] p-[5px] px-4 md:px-2 rounded-full py-2 text-white': "p-[5px] px-2 md:px-4 text-black  py-2" }>
                       <p className='flex flex-row justify-center place-content-center place-items-center gap-1 subpixel-antialiased font-light mt-1 text-sm leading-5'>
                         <tabs.icons className='hidden py-1 w-7 h-7 md:block' /> {tabs.label}
                       </p>
@@ -64,7 +64,7 @@ export default function TabData(props: tabsChildren) {
       </div>
 
 
-      <div className='flex w-full min-h-[40vw] p-4 mx-auto  md:p-6 rounded-lg md:border-[1px] md:border-gray-600'>
+      <div className='flex w-full min-h-[40vw] p-4 md:p-2 lg:p-6 rounded-lg'>
           {
             props.tab_body.map((t_body)=>(
              <div key={t_body.label}>

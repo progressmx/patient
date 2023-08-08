@@ -2,20 +2,26 @@ import React from 'react'
 import VitalsSummary from './vitalsSummary'
 import NotesSummary from './notesSummary'
 import TreatmentSummary from './treatmentSummary'
+import {LiaWeightHangingSolid} from 'react-icons/lia'
+import {CiTempHigh} from 'react-icons/ci'
+import {GiMedicalDrip} from 'react-icons/gi'
 
 const vitals = [
     {
+        name:"Blood Pressure",
+        label:"120 / 80",
+        icon:GiMedicalDrip
+    },
+    {
         name:"temperature",
         label:"36.6",
+        icon:CiTempHigh
     },
     {
         name:"Weight",
         label:"76 kg",
-    },
-    {
-        name:"BP",
-        label:"120 / 80",
-    },
+        icon:LiaWeightHangingSolid
+    }
 ]
 
 const date = new Date(1).toDateString()
@@ -48,13 +54,15 @@ const treat_data = [
 
 export default function Summary() {
   return (
-    <div className='flex flex-col gap-2 '>
-        <div className='mb-6'>
+    <div className='flex flex-col gap-2'>
+        {/* <div className='mb-6'>
             <p className='text-lg font-semibold'>Patient Visit Summary</p>
+        </div> */}
+        <div className='flex flex-col md:flex-row gap-4'>
+            <VitalsSummary input_bundle={vitals} />
+            <NotesSummary notes={notes_data} className='border-b-[1px] border-gray-200 hover:cursor-pointer'/>
         </div>
-        <VitalsSummary input_bundle={vitals} />
-        <NotesSummary notes={notes_data} className='hover:bg-blue-50 hover:cursor-pointer'/>
-        <TreatmentSummary medication={treat_data} className='hover:bg-blue-50 hover:cursor-pointer' />
+        <TreatmentSummary medication={treat_data} />
     </div>
   )
 }
