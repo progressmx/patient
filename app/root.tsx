@@ -29,8 +29,8 @@ export const loader: LoaderFunction = async({request})=>
 export default function App() {
 
   const location = useLocation(); // React Hook
-  // const {userId} = useLoaderData()
-  // const name = userId.fullName.split(" ")
+  const {userId} = useLoaderData()
+  const name = userId.fullName.split(" ")
 
   return (
     <html lang="en">
