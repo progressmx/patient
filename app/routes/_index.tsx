@@ -15,8 +15,8 @@ export const loader: LoaderFunction = async({request})=>
 
 export default function Index() {
 
-  // const {userId} = useLoaderData()
-  // const name = userId.fullName.split(" ")
+  const {userId} = useLoaderData()
+  const name = userId.fullName.split(" ")
 
   return (
     <>
