@@ -28,9 +28,9 @@ export const loader: LoaderFunction = async({request})=>
 
 export default function App() {
 
-  const location = useLocation(); // React Hook
-  const {userId} = useLoaderData()
-  const name = userId.fullName.split(" ")
+  // const location = useLocation(); // React Hook
+  // const {userId} = useLoaderData()
+  // const name = userId.fullName.split(" ")
 
   return (
     <html lang="en">
@@ -42,7 +42,7 @@ export default function App() {
       </head>
       <body>
         <header className={location.pathname === "/login" || location.pathname === "/join" ? "hidden" : "flex"}>
-          <NavBar name={name[0][0]} />
+          <NavBar name={"T"} />
           <Sidenav>
             <SideNavContainer/>
           </Sidenav>
