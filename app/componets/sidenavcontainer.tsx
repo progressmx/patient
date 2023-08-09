@@ -46,7 +46,7 @@ export default function SideNavContainer() {
     const location = useLocation();
 
   return (
-    <Sidenav className="lg:w-full">
+    <Sidenav className="">
         <SideHead className="text-[#0068ff] font-semibold">
             <h1>Side bar</h1>
         </SideHead>
