@@ -8,7 +8,7 @@ type Children =
 
 export default function Sidenav(props : Children) {
   return (
-    <nav className={`hidden w-[20%] lg:flex lg:top-0 lg:left-0 lg:fixed lg:w-[20%] lg:shadow lg:flex-col gap-2 lg:bg-white lg:h-full p-2 ${props.className}`}>
+    <nav className={`hidden w-[20vw] lg:flex lg:top-0 lg:left-0 lg:fixed lg:shadow lg:flex-col gap-2 lg:bg-white lg:h-full p-2 ${props.className}`}>
         {props.children}
     </nav>
   )
