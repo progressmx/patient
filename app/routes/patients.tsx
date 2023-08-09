@@ -40,7 +40,7 @@ export default function Patients() {
             <div className='md:mx-auto md:w-full gap-6 p-4  md:flex-row md:border-b-[1px] md:border-gray-400'>
                 <div className='w-full flex flex-col'>
                     <Typography varient="h3" className="flex flex-row gap-1 text-gray-900 text-bold text-2xl">
-                        <p>{!open? "My patients":"Add new patient"}</p>
+                        <p>"My patients"</p>
                         <p className="flex justify-center place-items-center text-sm px-2 md:text-xs rounded-full bg-gray-400 ">
                             {numberofPatients < 2?`${numberofPatients} patient` : `${numberofPatients} patients`}
                         </p>
