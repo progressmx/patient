@@ -26,16 +26,6 @@ const tabHead = [
     icons: GoBook
   },
   {
-    label: "Vitals",
-    route: "vitals",
-    icons:CiTempHigh
-  },
-  {
-    label: "Notes",
-    route: "notes",
-    icons:FaRegStickyNote
-  },
-  {
     label: "Treatment",
     route: "treatment",
     icons:BsCapsulePill
