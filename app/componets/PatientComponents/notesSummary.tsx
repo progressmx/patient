@@ -8,8 +8,13 @@ import CardBody from './cardBody'
 import CardFooter from './cardFooter'
 import CardHeader from './cardHeader'
 import CardContent from './cardContent'
-
+import Dialog from '../dialog'
+import { useState } from 'react'
+import NewNote from './newnote'
 export default function NotesSummary(props: Notes) {
+
+    const [open, setOpen] = useState(false);
+    const handleDialog = () => setOpen(!open);
   return (
     <SummaryCard>
       <CardHeader className='text-[#0068ff]'>
@@ -41,13 +46,17 @@ export default function NotesSummary(props: Notes) {
             ))
         }
       <CardFooter>
-        <div className='bg-gray-300 flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-100'>
+        <div  onClick={handleDialog} className='bg-gray-300 flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-100'>
           <BiPlus className='w-5 h-5 ' />
         </div>
         <p className='text-[#0068ff] text-sm font-bold'>
           add new note
         </p>
       </CardFooter>
+      {open?
+        <Dialog position='fixed' onClick={handleDialog} className='bg-gray-600 bg-opacity-50 overflow-y-auto'>
+          <NewNote></NewNote>
+        </Dialog> : ""}
        
     </SummaryCard>
   )
