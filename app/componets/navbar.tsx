@@ -83,7 +83,7 @@ export default function NavBar() {
                     :<BiChevronUp className='text-[#0068ff] hover:cursor-pointer h-8 w-8 p-1 rounded-full' onClick={handleMobile}/>}
             </div>
         </div>
-        <div className={open? "absolute flex flex-col right-0 top-12 p-4 rounded-lg bg-white shadow-md mr-4 lg:hidden": "hidden lg:hidden" }>
+        <div className={open? "absolute flex flex-col right-0 top-12 p-4 rounded-lg border-[1px] border-gray-300 bg-white shadow-md mr-4 lg:hidden": "hidden lg:hidden" }>
             <List className="flex-col gap-2">
                     {
                         data.map((links)=>(
