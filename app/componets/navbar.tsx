@@ -69,7 +69,7 @@ export default function NavBar() {
             </Typography>
         </div>
         <div className='flex flex-row gap-2 justify-end place-items-center w-[90%] md:w-[60%] px-2 md:px-4 lg:pr-10'>
-            <div>
+            <div className='hidden lg:flex'>
                 <Input placeholder="search a patient" icon={<BiSearchAlt2 className='w-5 h-5 rounded-3xl' />} />
             </div>
             <div className='bg-[#0068ff] flex justify-center place-content-center place-items-center w-8 h-8 rounded-full text-white'>
