@@ -24,7 +24,7 @@ export default function Day() {
     }
 
   return (
-    <div className='w-[80vw] md:w-[70vw]'>
+    <div className='flex flex-col w-[75vw] md:w-[85vw] lg:w-[60vw] p-0 mx-auto'>
         <AppointmentList data={appointmentData}></AppointmentList>
     </div>
   )
