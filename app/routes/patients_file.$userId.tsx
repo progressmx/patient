@@ -60,8 +60,7 @@ const patientComponets = [
 // }
 export const loader: LoaderFunction = async({request,params})=>
 {
-  const id = params.userId as string
-  const patientId = +id
+  const patientId = params.userId as string
 
   const userId = await requireUserId(request)
   const vitals = await getVitals(userId, patientId)
@@ -95,8 +94,7 @@ export const action: ActionFunction = async ({request, params})=>
   const form = await request.formData()
   const action = form.get('action')
   const userId = await requireUserId(request)
-  const pId = params.userId as string
-  const patientId = +pId
+  const patientId  = params.userId as string
 
   if(action == "newNote")
   {
