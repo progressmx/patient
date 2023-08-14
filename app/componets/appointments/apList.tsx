@@ -1,7 +1,11 @@
 import React from 'react'
 import ParentContainer from '../parentcontainer'
 import ContianerBody from '../containerbody'
-
+import {AiOutlineCheckCircle} from "react-icons/ai"
+import {BiLoader} from "react-icons/bi"
+import {ImCancelCircle} from "react-icons/im"
+import { Form } from '@remix-run/react'
+import { Button } from '@material-tailwind/react'
 
 function convertToHours (hours:string)
 {
@@ -21,6 +25,14 @@ function getNumDays(starts:string)
     const today = new Date()
 
     return Math.floor((Number(start) - Number(today)) / (3600*24*1000) + 1)
+}
+
+function getMinutes(starts:string)
+{
+    const start = new Date(starts)
+    const today = new Date()
+
+    return Math.floor((Number(start) - Number(today)) / (60*1000))
 }
 
 type Children = 
@@ -66,11 +78,11 @@ function AppointmentList(props:Children) {
                             <>
                                 {getNumDays(appointment.startTime) >= 7?
                                     <>
-                                        {Math.floor(getNumDays(appointment.startTime) / 7) + " week(s) left" }
+                                        {new Date(appointment.startTime).toDateString()}
                                     </>
                                      : 
                                      <>
-                                        {getNumDays(appointment.startTime) + " days left"}
+                                        {new Date(appointment.startTime).toDateString()}
                                     </>}
                             </>
                          :
@@ -86,11 +98,53 @@ function AppointmentList(props:Children) {
                         {appointment.reason}
                     </p>
                 </ContianerBody>
-                <ContianerBody className='gap-4 justify-center place-content-center place-items-center md:w-[20%] bg-[#0068ff] p-2 rounded-lg hover:cursor-pointer'>
-                    <p className="text-lg md:text-sm font-semibold leading-6 text-white">
-                        cancel
+              {appointment.status === "cancelled"?
+              
+                <ContianerBody className='gap-4 justify-center place-content-center place-items-center md:w-[20%] bg-gray-200 p-2 rounded-lg hover:cursor-pointer'>
+                    <p className="flex flex-row gap-2 justify-center place-items-center text-lg md:text-sm font-semibold leading-6 text-red-600">
+                        <ImCancelCircle className='w-5 h-5'/> cancelled
                     </p>
                 </ContianerBody>
+          
+                :
+
+                <>
+                    {getMinutes(appointment.startTime) < 0 && appointment.status != "cancelled"?
+                        <>
+                            {getMinutes(appointment.endTime) >= 1?
+
+                                <ContianerBody className='gap-4 justify-center place-content-center place-items-center md:w-[20%] bg-gray-200 p-2 rounded-lg hover:cursor-pointer'>
+                                    <p className="flex flex-row gap-2 justify-center place-items-center text-lg md:text-sm font-semibold leading-6 text-blue-600">
+                                        <BiLoader className='w-5 h-5'/> in progress
+                                    </p>
+                                </ContianerBody>
+
+                                :
+                                <ContianerBody className='gap-4 justify-center place-content-center place-items-center md:w-[20%] bg-gray-200 p-2 rounded-lg hover:cursor-pointer'>
+                                    <p className="flex flex-row gap-2 justify-center place-items-center text-lg md:text-sm font-semibold leading-6 text-green-600">
+                                        <AiOutlineCheckCircle className='w-5 h-5'/> completed
+                                    </p>
+                                </ContianerBody>
+                            }
+                        </>
+                    :
+                        <ContianerBody className='gap-4 justify-center place-content-center place-items-center md:w-[20%] bg-[#0068ff] rounded-md hover:cursor-pointer'>
+                            <Form method="post">
+                                 <input type="hidden" name="status" value="cancelled"/>
+                                    <input type="hidden" name="appointmentID" value={`${appointment.id}`}/>
+                                    <input type="hidden" name="action" value="updateStatus"/>
+                                <Button type='submit' className="flex bg-transparent flex-row gap-2 justify-center place-items-center text-lg md:text-sm font-semibold leading-6 text-white">
+                                    <ImCancelCircle className='w-5 h-5'/> cancel
+                                </Button>
+                            </Form>
+                            
+                            
+                        </ContianerBody>
+        
+                    }
+                </>
+
+              }
             </ParentContainer>
 
 

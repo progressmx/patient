@@ -16,8 +16,9 @@ export default function Month() {
       
         const startTime = new Date(appointment[index].startTime)
         const joinDate =  new Date();
+        const time = Math.floor((Number(startTime) - Number(joinDate)) / (3600*24*1000) + 1)
         
-        if(Math.floor((Number(startTime) - Number(joinDate)) / (3600*24*1000) + 1) <= 30)
+        if(time <= 30 && time >= 8)
         {
           appointmentData.push(appointment[index])
         }

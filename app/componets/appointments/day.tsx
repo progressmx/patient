@@ -14,10 +14,10 @@ export default function Day() {
 
     for (let index = 0; index < appointment.length; index++) {
       
-        const startTime = new Date(appointment[index].startTime)
-        const joinDate =  new Date();
+        const startTime = new Date(appointment[index].startTime).toDateString();
+        const joinDate =  new Date().toDateString();
         
-        if(Math.floor((Number(startTime) - Number(joinDate)) / (3600*24*1000) + 1) <= 1)
+        if(startTime == joinDate)
         {
           appointmentData.push(appointment[index])
         }

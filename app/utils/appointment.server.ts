@@ -23,7 +23,7 @@ export async function createAppointments(appointment: Appointments)
 }
 
 
-export async function getAppointments(ownerID: string)
+export async function getAppointments(ownerID: number)
 {
     if (typeof ownerID !== 'string') 
     {
@@ -39,6 +39,26 @@ export async function getAppointments(ownerID: string)
       return appointments
 
     } catch {
-       return "no one found"
+      throw "no one found"
+    }
+}
+
+export async function updateAppointmentStatus(ownerID: string, appointmentID:string,status:string)
+{
+    if (typeof ownerID !== 'string') 
+    {
+      return null
+    }
+    try {
+
+        // console.log("patient found")
+        const appointments = await prisma.appointments.update({
+        where: {id: appointmentID, createdBy: ownerID},
+        data: { status : status},
+      })
+      return appointments
+
+    } catch {
+      throw "no one found"
     }
 }

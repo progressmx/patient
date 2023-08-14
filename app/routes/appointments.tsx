@@ -19,7 +19,7 @@ import Week from '~/componets/appointments/week';
 import Month from '~/componets/appointments/month';
 import Dialog from '~/componets/dialog';
 import NewAppoinment from '~/componets/appointments/new';
-import { createAppointments, getAppointments } from '~/utils/appointment.server';
+import { createAppointments, getAppointments, updateAppointmentStatus } from '~/utils/appointment.server';
 
 const tabHead = [
     {
@@ -51,23 +51,7 @@ const appointmentComponets = [
     }
   ]
 
-const data_ = [
-    {
-        name:"today",
-        value:"3/10",
-        icon:BsCalendar4Event
-    },
-    {
-        name:"cancelled",
-        value:"4/10",
-        icon:BsCalendar2X
-    },
-    {
-        name:"total",
-        value:"10",
-        icon:BsCalendarWeek
-    }
-]
+
 
 
 export const loader: LoaderFunction = async({request})=>
@@ -82,12 +66,51 @@ function Appointments() {
 
   const [open, setOpen] = useState(false);
   const handleDialog = () => setOpen(!open);
+  const date = new Date().toDateString();
+  const jointime =  new Date().toString();
+  const time = new Date(jointime).toLocaleTimeString()
 
-    const {userId} = useLoaderData()
-    const date = new Date().toDateString();
 
-    const jointime =  new Date().toString();
-    const time = new Date(jointime).toLocaleTimeString()
+  const appointment = useLoaderData()
+  const total = appointment.length
+  let cancelled = 0
+  let today = 0
+
+  for (let index = 0; index < appointment.length; index++) {
+      
+    const startTime = new Date(appointment[index].startTime)
+    const joinDate =  new Date();
+    
+    if(Math.floor((Number(startTime) - Number(joinDate)) / (3600*24*1000) + 1) < 1)
+    {
+      today += 1
+    }
+    if(appointment[index].status == "cancelled")
+    {
+      cancelled += 1
+    }
+
+}
+
+    const data_ = [
+      {
+          name:"today",
+          value: today.toString() + "/" + total,
+          icon:BsCalendar4Event
+      },
+      {
+          name:"cancelled",
+          value:cancelled.toString() +"/"+total.toString(),
+          icon:BsCalendar2X
+      },
+      {
+          name:"total",
+          value:total.toString(),
+          icon:BsCalendarWeek
+      }
+  ]
+
+
 
   return (
     <>
@@ -174,7 +197,14 @@ export const action: ActionFunction = async ({request, params})=>
       
       
   }
- 
+ else if(action == "updateStatus")
+ {
+    let status = form.get("status") as string
+    // let id = form.get("appointmentID") as string
+    const appointmentID = form.get("appointmentID") as string
+
+    return await updateAppointmentStatus(userId,appointmentID,status)
+ }
   else{
       
       return json({error:'Cannot access this page contact the Addmin for more information'},{status:400})

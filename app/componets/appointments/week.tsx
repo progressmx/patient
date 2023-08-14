@@ -17,7 +17,10 @@ export default function Week() {
         const startTime = new Date(appointment[index].startTime)
         const joinDate =  new Date();
         
-        if(Math.floor((Number(startTime) - Number(joinDate)) / (3600*24*1000) + 1) <= 7)
+
+        const time = Math.floor((Number(startTime) - Number(joinDate)) / (3600*24*1000) + 1)
+
+        if(time <= 7 && time >= 1 )
         {
           appointmentData.push(appointment[index])
         }
