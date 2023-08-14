@@ -15,12 +15,28 @@ model user{
   email String  @unique
   password String
   patient Patient[]
+  vitals Vitals[]
+  notes Notes[]
+  appointments Appointments[]
 }
 
-model Patient{
-  id    String   @id @default(auto()) @map("_id") @db.ObjectId
+model Appointments{
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
   firstName String
   lastName String
+  reason String
+  createdOn String
+  startTime String
+  status String
+  endTime String 
+  owner user@relation(fields: [createdBy], references: [id])
+  createdBy String @db.ObjectId
+}
+model Patient{
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  lastName String
+  gender String
   createdOn String
   phone String
   dob String
@@ -29,4 +45,32 @@ model Patient{
   paymentMethod String
   owner user@relation(fields: [createdBy], references: [id])
   createdBy String @db.ObjectId
+  vitals Vitals[]
+  notes Notes[]
+}
+
+model Vitals{
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  bloodPresure String
+  height String
+  temperature String
+  weight String
+  createdOn String
+  owner user@relation(fields: [createdBy], references: [id])
+  createdBy String @db.ObjectId
+  patient Patient @relation(fields: [patientId], references: [id])
+  patientId String @db.ObjectId
+}
+
+model Notes{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  presentComplain String
+  complainHistory String
+  medicalHistory String
+  diagnosis String
+  createdOn String
+   owner user@relation(fields: [createdBy], references: [id])
+  createdBy String @db.ObjectId
+  patient Patient @relation(fields: [patientId], references: [id])
+  patientId String @db.ObjectId
 }
