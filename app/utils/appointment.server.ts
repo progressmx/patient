@@ -39,6 +39,6 @@ export async function getAppointments(ownerID: string)
       return appointments
 
     } catch {
-      throw "no one found"
+       return "no one found"
     }
 }
