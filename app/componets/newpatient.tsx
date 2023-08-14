@@ -46,7 +46,21 @@ const payment_method = [
         value:"medicalAid"
     },
 ]
-
+const gender = 
+[
+    {
+        label : "male",
+        value : "male"
+    },
+    {
+        label : "female",
+        value : "female"
+    },
+    {
+        label : "others",
+        value : "others"
+    },
+]
 
 function NewPatient() {
 
@@ -62,6 +76,7 @@ function NewPatient() {
                 <div className='flex flex-col gap-4 mt-4'>
                    <InputBundle input_bundle={text_fields} />
                    <Input type="date" label='date of bith' name="dob"></Input>
+                    <Select label="patient's gender" name="gender" select_group={gender}/>
                     <Select label="visit reason" name="reason" select_group={visit_reason}/>
                     <Select label="payment methon" name="payment" select_group={payment_method}/>
                     <Button disabled={isSubmitting} type='submit'> {isSubmitting ? 'Adding...': 'Add Patient'}</Button>

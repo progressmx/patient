@@ -1,5 +1,5 @@
 import React from 'react'
-import { Notes } from '../types'
+import { Notes, notesType } from '../types'
 import { BsFillPersonPlusFill, BsFillEyeFill} from 'react-icons/bs'
 import {BiExpandAlt,BiPlus} from 'react-icons/bi'
 import {LiaTimesSolid} from 'react-icons/lia'
@@ -11,10 +11,39 @@ import CardContent from './cardContent'
 import Dialog from '../dialog'
 import { useState } from 'react'
 import NewNote from './newnote'
-export default function NotesSummary(props: Notes) {
+
+export default function NotesSummary(props: notesType) {
 
     const [open, setOpen] = useState(false);
     const handleDialog = () => setOpen(!open);
+
+    const notes = []
+    let size = 0
+    try{
+      size = Object.keys(props.notes[0]).length
+    }
+    catch
+    {
+      size = 0
+    }
+  
+    
+    if(size > 0)
+    {
+       for (let index = 0; index < size; index++) {
+         
+         let labels = Object.keys(props.notes[0])[index]
+   
+         if(labels != 'id')
+         {
+           labels = labels as string
+           const values = props.notes[0][labels]
+   
+           notes.push({label:labels, date:values})
+         }
+       }
+    }
+
   return (
     <SummaryCard>
       <CardHeader className='text-[#0068ff]'>
@@ -24,14 +53,14 @@ export default function NotesSummary(props: Notes) {
           </div>
       </CardHeader>
 
-         {
+         {size > 0?
             props.notes.map((note) => (
-                <CardBody key={note.title} className='border-b-[1px] border-gray-200'>
+                <CardBody key={note.id} className='border-b-[1px] border-gray-200'>
                   <CardContent className='flex-col'>
                       <p className='text-sm font-semibold ml-4 text-gray-900'>
-                        {note.title} Title
+                        {note.presentComplain}
                       </p>
-                      <p className='ml-4 text-gray-900 text-xs opacity-80'>{note.date}</p>
+                      <p className='ml-4 text-gray-900 text-xs opacity-80'>{note.createdOn}</p>
                   </CardContent>
                   <CardContent className='text-black justify-end place-content-end'>
                       <div className='bg-gray-300  flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-100'>
@@ -44,6 +73,12 @@ export default function NotesSummary(props: Notes) {
                 </CardBody>
                 
             ))
+            :
+            <>
+              <CardContent>
+                  <p>No notes found for this patient</p>
+              </CardContent>
+            </>
         }
       <CardFooter>
         <div  onClick={handleDialog} className='bg-gray-300 flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-100'>
@@ -54,7 +89,7 @@ export default function NotesSummary(props: Notes) {
         </p>
       </CardFooter>
       {open?
-        <Dialog position='fixed' onClick={handleDialog} className='bg-gray-600 bg-opacity-50 overflow-y-auto'>
+        <Dialog position='fixed' onClick={handleDialog} className='bg-gray-600 bg-opacity-20 overflow-y-auto'>
           <NewNote></NewNote>
         </Dialog> : ""}
        

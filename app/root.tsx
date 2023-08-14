@@ -10,9 +10,6 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { useLocation } from "@remix-run/react";
-import NavBar from "./componets/navbar";
-import Sidenav from "./componets/sidenav";
-import SideNavContainer from "./componets/sidenavcontainer";
 
 
 export default function App() {

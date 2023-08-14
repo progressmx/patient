@@ -59,7 +59,7 @@ export async function register(user : RegisterForm)
 
 export async function registerPatient(user : PatientForm)
 {
-    const exist = await prisma.Patient.count({where: {firstName:user.firstName}})
+    const exist = await prisma.patient.count({where: {firstName:user.firstName}})
 
     if(exist)
     {
@@ -161,7 +161,7 @@ export async function getUser(request: Request)
     try {
       const user = await prisma.user.findUnique({
         where: { id: userId },
-        select: { id: true, fullName: true},
+        select: { id: true,fullName:true},
       })
       return user
     } catch {

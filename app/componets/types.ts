@@ -3,6 +3,7 @@ import { IconType } from "react-icons";
 
 export type objType = 
 {
+    className?:string
     data:{
         id: number
         firstName: string
@@ -52,7 +53,7 @@ export type tabsChildren =
     {
         label:string
         route:string
-        icons:IconType
+        // icons:IconType | undefined
     }[]
     tab_body:
     {
@@ -80,6 +81,30 @@ export type Treatment =
         medication:string,
         dosage:string,
         duration:string
+    }[]
+}
+
+export type vitalsType = 
+{
+    className?: string,
+    onClick?: (...args: any) => any,
+    vitals:
+    {
+        id:string
+        bloodPresure: string
+        temperature: string
+        weight: string
+    }[]
+}
+export type notesType = 
+{
+    className?: string,
+    onClick?: (...args: any) => any,
+    notes:
+    {
+        id:string
+        presentComplain: string
+        createdOn: string
     }[]
 }
 

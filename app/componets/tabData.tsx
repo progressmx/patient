@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { tabsChildren } from './types'
 import List from './list'
 import LinkItem from './linkitem'
 import {AiOutlineHome,AiOutlineCalendar,AiOutlinePieChart,AiOutlineLogout,AiOutlineClose,AiOutlineMenu} from "react-icons/ai"
-import { NavLink } from '@remix-run/react'
+
 
 export default function TabData(props: tabsChildren) {
 
@@ -13,16 +13,22 @@ export default function TabData(props: tabsChildren) {
     const handleMobile = () => setOpen(!open);
   return (
     <div className='flex flex-col gap-4 w-full'>
-      <div className={`hidden  md:rounded-lg md:w-full  md:flex md:flex-row md:justify-center md:place-content-center ${props.className}`}>
+      <div className={`hidden md:w-full  md:flex md:flex-row md:justify-start md:place-items-center ${props.className}`}>
           <List className="flex-row gap-2">
               {
                   props.tab_header.map((tabs)=>(
                   <LinkItem 
                   key={tabs.label} 
                   onClick={() => setActiveTab(tabs.route)}
-                  className={activeTab === tabs.route?'bg-[#0068ff] p-[5px] px-4 md:px-2 rounded-full py-2 text-white': "p-[5px] px-2 md:px-4 text-black  py-2" }>
-                      <p className='flex flex-row justify-center place-content-center place-items-center gap-1 subpixel-antialiased font-light mt-1 text-sm leading-5'>
-                        <tabs.icons className='hidden py-1 w-7 h-7 md:block' /> {tabs.label}
+                  className={activeTab === tabs.route?
+                        'border-b-2 border-black font-extrabold p-[5px] px-4 md:px-2 py-2 text-black'
+                        :
+                       "p-[5px] px-2 md:px-4 text-gray-900 opacity-80  py-2" }>
+
+
+                      <p className='flex flex-row justify-center place-content-center place-items-center gap-1 subpixel-antialiased mt-1 text-sm leading-5'>
+                        {/* <tabs.icons className='hidden py-1 w-7 h-7 md:block' />  */}
+                        {tabs.label}
                       </p>
                   </LinkItem>
                   ))
@@ -54,7 +60,8 @@ export default function TabData(props: tabsChildren) {
                   onClick={() => setActiveTab(tabs.route)}
                   className={activeTab === tabs.route?'bg-blue-800 p-[5px] px-2 rounded-md py-2 text-white': "p-[5px] px-2 text-black rounded-md py-2" }>
                       <p className='flex flex-row justify-center place-content-center place-items-center gap-1 subpixel-antialiased font-light mt-1 text-sm leading-5'>
-                        <tabs.icons className='hidden py-1 w-7 h-7 md:block' /> {tabs.label}
+                        {/* <tabs.icons className='hidden py-1 w-7 h-7 md:block' /> */}
+                        {tabs.label}
                       </p>
                   </LinkItem>
                   ))
@@ -64,7 +71,7 @@ export default function TabData(props: tabsChildren) {
       </div>
 
 
-      <div className='flex w-full min-h-[40vw] p-4 md:p-2 lg:p-6 rounded-lg'>
+      <div className='flex w-full min-h-[40vw] p-4 md:p-2 rounded-lg'>
           {
             props.tab_body.map((t_body)=>(
              <div key={t_body.label}>

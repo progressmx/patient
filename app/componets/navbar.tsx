@@ -27,7 +27,7 @@ const data = [
   },
   {
       name:"Appointments",
-      link:"#",
+      link:"/appointments",
       icon:AiOutlineCalendar
   },
   {
@@ -58,7 +58,6 @@ export default function NavBar() {
 
     const userDetails = useLoaderData()
 
-    console.log("user data : ",userDetails)
     // const name = userDetails.fullName.split(" ")
 
   return (

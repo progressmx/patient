@@ -7,7 +7,7 @@ function InputBundle(props: bundle){
     <>
         {
              props.input_bundle.map((field)=>(
-                <Input size="md" color="indigo" label={field.label} name={field.name} />
+                <Input size="md" label={field.label} name={field.name} required/>
             ))
         }
 </>

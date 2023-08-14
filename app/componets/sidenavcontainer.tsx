@@ -25,12 +25,12 @@ const data = [
   },
   {
       name:"Appointments",
-      link:"#",
+      link:"/appointments",
       icon:AiOutlineCalendar
   },
   {
       name:"Reports",
-      link:"#",
+      link:"/reports",
       icon:AiOutlinePieChart
   },
   {

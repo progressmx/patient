@@ -17,28 +17,25 @@ import {FaRegStickyNote} from 'react-icons/fa'
 import Sidenav from '~/componets/sidenav';
 import SideNavContainer from '~/componets/sidenavcontainer';
 import Vitals from '~/componets/PatientComponents/vitals';
-
+import { setVitals,getVitals } from '~/utils/vitals.server';
+import { createNote ,getNotes} from "~/utils/notes.server";
 
 const tabHead = [
   {
     label: "Summary",
     route: "summary",
-    icons: GoBook
   },
   {
     label: "Treatment",
     route: "treatment",
-    icons:BsCapsulePill
   },
   {
     label: "Lab",
     route: "lab",
-    icons:ImLab
   },
   {
     label: "Billing",
     route: "bill",
-    icons:AiOutlineCalculator
   },
 ];
 
@@ -54,17 +51,29 @@ const patientComponets = [
 ]
 
 
-export const loader: LoaderFunction = async({request, params})=>
+// export const loader: LoaderFunction = async({request, params})=>
+// {
+//   const userId = params.userId as string
+//   const id = +userId
+//   const patient = await getPatients(id)
+//   return json({patient})
+// }
+export const loader: LoaderFunction = async({request,params})=>
 {
-  const userId = params.userId as string
-  const id = +userId
-  const patient = await getPatients(id)
-  return json({patient})
+  const id = params.userId as string
+  const patientId = +id
+
+  const userId = await requireUserId(request)
+  const vitals = await getVitals(userId, patientId)
+  const notes = await getNotes(userId, patientId)
+  const data = json({vitals,notes})
+
+  return data
 }
 
 export default function patientFile() {
 
-    const {patient} = useLoaderData()
+    // const {patient} = useLoaderData()
   return (
     <>
       <NavBar />
@@ -80,4 +89,45 @@ export default function patientFile() {
     </>
     
   )
+}
+export const action: ActionFunction = async ({request, params})=>
+{
+  const form = await request.formData()
+  const action = form.get('action')
+  const userId = await requireUserId(request)
+  const pId = params.userId as string
+  const patientId = +pId
+
+  if(action == "newNote")
+  {
+      let presentComplain = form.get("presentComplain") as string
+      let complainHistory = form.get("complainHistory") as string
+      let medicalHistory = form.get("medicalHistory") as string
+      let diagnosis = form.get('weight') as string
+      if(diagnosis == null)
+      {
+        diagnosis = "no conclusion"
+      }
+      const joiDate =  new Date().toString();
+      const createdOn= new Date(joiDate).toDateString()
+
+      return await createNote({presentComplain,complainHistory,medicalHistory,diagnosis,createdOn,userId, patientId})
+  }
+  else if(action == "vitals")
+  {
+      let bloodPresure = form.get("bp") as string
+      let height = form.get("height") as string
+      let temperature = form.get("temperature") as string
+      let weight = form.get('weight') as string 
+
+      const joiDate =  new Date().toString();
+      const createdOn= new Date(joiDate).toDateString()
+
+      return await setVitals({bloodPresure,height,temperature,weight,createdOn,userId,patientId })
+  } 
+ 
+  else{
+      
+      return json({error:'Cannot access this page contact the Addmin for more information'},{status:400})
+  }
 }
