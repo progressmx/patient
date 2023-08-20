@@ -18,14 +18,14 @@ export default function Month() {
         const joinDate =  new Date();
         const time = Math.floor((Number(startTime) - Number(joinDate)) / (3600*24*1000) + 1)
         
-        if(time <= 30 && time >= 8)
+        if(time <= 30 && time >= 8 && appointment[index].status != "cancelled")
         {
           appointmentData.push(appointment[index])
         }
     }
 
   return (
-    <div className='flex flex-col w-[75vw] md:w-[85vw] lg:w-[60vw] p-0 mx-auto'>
+    <div className='flex flex-col mx-auto md:mx-1 w-[90%] lg:w-3/4 md:w-[80%]'>
         <AppointmentList data={appointmentData}></AppointmentList>
     </div>
   )

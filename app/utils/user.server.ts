@@ -32,6 +32,7 @@ export async function createPatient(patient: PatientForm)
                 idNumber:patient.idNumber,
                 phone:patient.contact, 
                 dob:patient.dobStr,
+                status: "active",
                 createdOn: shortJoinDate, 
                 reason:patient.reason, 
                 paymentMethod:patient.payment,

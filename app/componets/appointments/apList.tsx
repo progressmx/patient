@@ -9,6 +9,9 @@ import { Button } from '@material-tailwind/react'
 import {BsCalendar4Event,BsClock} from 'react-icons/bs'
 import { FaRegStickyNote } from 'react-icons/fa'
 import { LiaStickyNote } from 'react-icons/lia'
+import ContainterButton from './button'
+
+
 function convertToHours (hours:string)
 {
     if(hours[4] == ":")
@@ -60,8 +63,8 @@ function AppointmentList(props:Children) {
     <>
        {
             props.data.map((appointment)=>(
-                <ParentContainer key={appointment.id} className='bg-white'>
-                    <ContianerBody className='flex-col gap-1 md:w-[20%] justify-start'>
+                <ParentContainer key={appointment.id} className='bg-white mx-auto w-full'>
+                    <ContianerBody className='flex-col gap-1 md:w-[25%] justify-start'>
                         <p className="text-lg hidden md:block md:text-sm font-semibold leading-6 text-gray-700">
                             Name
                         </p>
@@ -77,7 +80,7 @@ function AppointmentList(props:Children) {
                             {new Date(appointment.startTime).toDateString()}
                         </p>
                     </ContianerBody>
-                    <ContianerBody className='flex-row md:flex-col gap-2 md:gap-1 md:w-[20%] justify-start'>
+                    <ContianerBody className='flex-row md:flex-col gap-2 md:gap-1 md:w-[25%] justify-start'>
                         <p className="flex flex-col md:flex-row l text-lg md:text-sm font-semibold leading-6 text-gray-700">
                           <BsClock  className='w-5 h-5 text-black md:hidden'/> <span className='hidden md:block'>Time</span>
                         </p>
@@ -108,7 +111,7 @@ function AppointmentList(props:Children) {
                         </p>
                     </ContianerBody>
                 {appointment.status === "cancelled"?
-                    <ContianerBody className='gap-4 justify-center place-content-center place-items-center mt-4 md:mt-auto  w-[50%] md:w-auto bg-gray-200 p-2 rounded-lg hover:cursor-pointer'>
+                    <ContianerBody className='gap-4 justify-center place-content-center place-items-center mt-4 md:mt-auto w-2/4 md:w-[25%] bg-gray-200 p-2 rounded-lg hover:cursor-pointer'>
                         <p className="flex flex-row gap-2 justify-center place-items-center text-lg md:text-sm font-semibold leading-6 text-red-600">
                             <ImCancelCircle className='w-5 h-5'/> cancelled
                         </p>
@@ -121,22 +124,22 @@ function AppointmentList(props:Children) {
                             <>
                                 {getMinutes(appointment.endTime) >= 1?
 
-                                    <ContianerBody className='gap-4 justify-center place-content-center place-items-center mt-4 md:mt-auto  w-[50%] md:w-auto bg-gray-200 p-2 rounded-lg hover:cursor-pointer'>
+                                    <ContainterButton className=' bg-gray-200 '>
                                         <p className="flex flex-row gap-2 justify-center place-items-center text-lg md:text-sm font-semibold leading-6 text-blue-600">
                                             <BiLoader className='w-5 h-5'/> in progress
                                         </p>
-                                    </ContianerBody>
+                                    </ContainterButton>
 
                                     :
-                                    <ContianerBody className='gap-4 justify-center place-content-center place-items-center mt-4 md:mt-auto w-[50%] md:w-auto bg-gray-200 p-2 rounded-lg hover:cursor-pointer'>
+                                    <ContainterButton className=' bg-gray-200'>
                                         <p className="flex flex-row gap-2 justify-center place-items-center text-lg md:text-sm font-semibold leading-6 text-green-600">
                                             <AiOutlineCheckCircle className='w-5 h-5'/> completed
                                         </p>
-                                    </ContianerBody>
+                                    </ContainterButton>
                                 }
                             </>
                         :
-                            <ContianerBody className='gap-4 justify-center place-content-center place-items-center mt-4 md:mt-auto w-[50%] md:w-auto bg-[#0068ff] rounded-md hover:cursor-pointer'>
+                            <ContianerBody className='bg-[#0068ff]'>
                                 <Form method="post">
                                     <input type="hidden" name="status" value="cancelled"/>
                                         <input type="hidden" name="appointmentID" value={`${appointment.id}`}/>
@@ -145,8 +148,6 @@ function AppointmentList(props:Children) {
                                         <ImCancelCircle className='w-5 h-5'/> cancel
                                     </Button>
                                 </Form>
-                                
-                                
                             </ContianerBody>
             
                         }

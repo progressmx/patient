@@ -8,6 +8,8 @@ export type objType =
         id: number
         firstName: string
         lastName: string
+        gender: string
+        dob:string
         reason:string
         paymentMethod: string
         createdOn: string
@@ -90,7 +92,7 @@ export type vitalsType =
     onClick?: (...args: any) => any,
     vitals:
     {
-        id:string
+        id:number
         bloodPresure: string
         temperature: string
         weight: string
@@ -102,7 +104,7 @@ export type notesType =
     onClick?: (...args: any) => any,
     notes:
     {
-        id:string
+        id:number
         presentComplain: string
         createdOn: string
     }[]

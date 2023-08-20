@@ -1,9 +1,13 @@
 import React from 'react'
-import { Typography,Button,Dialog} from '@material-tailwind/react'
+import { Typography,Button} from '@material-tailwind/react'
 import { useState } from 'react'
 import { LoaderFunction,} from "@remix-run/node";
-import { getPatients, requireUserId, registerPatient} from "~/utils/auth.server";
-import {AiOutlinePlus, AiOutlineMinus} from 'react-icons/ai'
+import {requireUserId} from "~/utils/auth.server";
+import { getPatients,registerPatient } from '~/utils/patient.server';
+import {BsPeopleFill} from 'react-icons/bs'
+import {MdGroupRemove} from 'react-icons/md'
+import { BiPlus } from 'react-icons/bi';
+import Dialog from '~/componets/dialog';
 import Container from '~/componets/container';
 import NewPatient from '~/componets/newpatient';
 import { Form , useNavigation,useActionData,useLoaderData} from "@remix-run/react";
@@ -12,7 +16,7 @@ import { validateEmail,validatePassword,validateName} from '~/utils/validator.se
 import NavBar from '~/componets/navbar';
 import SideNavContainer from "~/componets/sidenavcontainer";
 import Sidenav from "~/componets/sidenav";
-
+import Head from '~/componets/appointments/head';
 export const loader: LoaderFunction = async({request})=>
 {
   const userId = await requireUserId(request)
@@ -21,13 +25,29 @@ export const loader: LoaderFunction = async({request})=>
 
   return json({patient})
 }
+
+
+
 export default function Patients() {
 
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(!open);
-
+    const handleDialog = () => setOpen(!open);
     const {patient} = useLoaderData()
     const numberofPatients = patient.length
+
+
+    const data_ = [
+        {
+            name:"Deleted",
+            value:"0",
+            icon:MdGroupRemove
+        },
+        {
+            name:"total",
+            value:numberofPatients.toString(),
+            icon:BsPeopleFill
+        }
+    ]
 
   return (
     <>
@@ -35,27 +55,23 @@ export default function Patients() {
         <Sidenav>
             <SideNavContainer/>
         </Sidenav>
-        <div className="relative w-[90%] bg-white rounded-md lg:left-[25vw] lg:w-[65vw] flex flex-col mx-auto p-4 top-32 md:h-auto lg:m-[0] md:p-4 ">
-            <div className='md:mx-auto md:w-full gap-6 p-4  md:flex-row md:border-b-[1px] md:border-gray-400'>
-                <div className='w-full flex flex-col'>
-                    <Typography varient="h3" className="flex flex-row gap-1 text-gray-900 text-bold text-2xl">
-                        <p>{!open? "My patients":"Add new patient"}</p>
-                        <p className="flex justify-center place-items-center text-sm px-2 md:text-xs rounded-full bg-gray-400 ">
-                            {numberofPatients < 2?`${numberofPatients} patient` : `${numberofPatients} patients`}
-                        </p>
-                        <button onClick={handleOpen} className='text-sm md:text-xs'>
-                            {!open? 
-                                <><AiOutlinePlus className='bg-gray-800 justify-center h-5 w-5 place-items-center rounded-full text-white'/></>
-                                : <><AiOutlineMinus className='bg-gray-800 justify-center h-5 w-5 place-items-center rounded-full text-white'/></>
-                            }
-                        </button>
-                        
-                    </Typography>
-                </div>
+        <div className="relative flex flex-col gap-2 p-2 md:p-4 top-32 rounded-lg lg:left-[10vw] w-full lg:w-3/4 md:mx-auto md:w-full">
+            <div className='flex flex-col gap-1 justify-start'>
+                <Typography variant="h4" className="flex flex-row place-items-center gap-3 text-gray-900 font-bold">
+                    <p>My Patients</p>
+                    <div  onClick={handleDialog} className='bg-gray-900 flex justify-center place-items-center w-6 h-6 rounded-full hover:cursor-pointer hover:bg-gray-100'>
+                        <BiPlus className='w-5 h-5 text-white' />
+                    </div>
+                </Typography>
             </div>
+            <Head data={data_} className='mt-6'></Head>
             <div className=''>
-                {!open? <Container data={patient} /> : <NewPatient />}
+                <Container data={patient} />
             </div>
+            {open?
+              <Dialog position="fixed" onClick={handleDialog} className='bg-gray-600 bg-opacity-20'>
+                    <NewPatient />
+              </Dialog> :""}
         </div>
     </>
   )

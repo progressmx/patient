@@ -12,7 +12,7 @@ export default function TabData(props: tabsChildren) {
     const [open, setOpen] = useState(false);
     const handleMobile = () => setOpen(!open);
   return (
-    <div className='flex flex-col gap-4 w-full'>
+    <div className='flex flex-col w-full'>
       <div className={`hidden md:w-full  md:flex md:flex-row md:justify-start md:place-items-center ${props.className}`}>
           <List className="flex-row gap-2">
               {
@@ -71,7 +71,7 @@ export default function TabData(props: tabsChildren) {
       </div>
 
 
-      <div className='flex w-full min-h-[40vw] p-4 md:p-2 rounded-lg'>
+      <>
           {
             props.tab_body.map((t_body)=>(
              <div key={t_body.label}>
@@ -81,7 +81,7 @@ export default function TabData(props: tabsChildren) {
              </div>
             ))
           }
-      </div>
+      </>
     </div>
   )
 }

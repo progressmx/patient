@@ -3,6 +3,10 @@ import { Input,Typography,Card,Button} from '@material-tailwind/react'
 import { Form, useNavigation } from '@remix-run/react'
 import InputBundle from './inputbundle'
 import Select from './select'
+import SummaryCard from './PatientComponents/summaryCard'
+import CardHeader from './PatientComponents/cardHeader'
+import CardBody from './PatientComponents/cardBody'
+
 const text_fields = [
     {
         name:"firstName",
@@ -68,22 +72,22 @@ function NewPatient() {
     const isSubmitting = navigation.state === 'submitting';
     
   return (
-    <div className='relative flex justify-center place-items-center w-full'>
-        <Card color="transparent" shadow={false} className='w-[100vw] mt-4 md:w-[70vw] lg:w-[30vw] p-6'>
-            <Typography variant="h4" className="text-bold text-gray-900 text-center"> Add new patient</Typography>
-            <Typography className="text-gray-800 opacity-70 text-center">Fill in the details</Typography>
-            <Form method='post'>
-                <div className='flex flex-col gap-4 mt-4'>
-                   <InputBundle input_bundle={text_fields} />
-                   <Input type="date" label='date of bith' name="dob"></Input>
-                    <Select label="patient's gender" name="gender" select_group={gender}/>
-                    <Select label="visit reason" name="reason" select_group={visit_reason}/>
-                    <Select label="payment methon" name="payment" select_group={payment_method}/>
-                    <Button disabled={isSubmitting} type='submit'> {isSubmitting ? 'Adding...': 'Add Patient'}</Button>
-                </div>
-            </Form>
-        </Card>
-    </div>
+    <SummaryCard className='p-4'>
+         <CardHeader className='text-[#0068ff] flex-col gap-4'>
+            <h3 className='text-lg font-bold '>Add new patient</h3>
+            {/* {error?.message && <p className='text-red-700 font-semibold text-sm'>{error.message}</p>} */}
+        </CardHeader>
+        <Form method='post'>
+            <div className='flex flex-col gap-4 mt-4'>
+                <InputBundle input_bundle={text_fields} />
+                <Input type="date" label='date of bith' name="dob"></Input>
+                <Select label="patient's gender" name="gender" select_group={gender}/>
+                <Select label="visit reason" name="reason" select_group={visit_reason}/>
+                <Select label="payment methon" name="payment" select_group={payment_method}/>
+                <Button disabled={isSubmitting} type='submit'> {isSubmitting ? 'Adding...': 'Add Patient'}</Button>
+            </div>
+        </Form>
+    </SummaryCard>
   )
 }
 

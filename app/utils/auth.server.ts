@@ -57,41 +57,6 @@ export async function register(user : RegisterForm)
     return createUserSesseion(newUser.id, '/')
 }
 
-export async function registerPatient(user : PatientForm)
-{
-    const exist = await prisma.patient.count({where: {firstName:user.firstName}})
-
-    if(exist)
-    {
-        console.log("user already exist")
-        return json({error: "User already exist with that email"},{status : 400})
-    }
-
-    let newUser = await createPatient(user)
-
-    if(!newUser)
-    {
-    
-        console.log("Something went wrong in creating new patient")
-        return json(
-            {
-                error:"Something went wrong in creating new patient",
-                fields:{
-                    firstName:user.firstName,
-                    lastName:user.lastName, 
-                    idNumber:user.idNumber,
-                    phone:user.contact,
-                    dob:user.dobStr, 
-                    reason:user.reason, 
-                    payment:user.payment
-                }
-            },
-            {status:400}
-        )
-    }
-    return null
-}
-
 
 export async function login({email,password} : LoginForm) 
 {
@@ -168,28 +133,7 @@ export async function getUser(request: Request)
       throw logout(request)
     }
 }
-export async function getPatients(ownerID: string)
-{
-    if (typeof ownerID !== 'string') 
-    {
-      return null
-    }
-    // console.log("owner id : ",ownerID)
-  
-    try {
 
-        // console.log("patient found")
-      const patient = await prisma.patient.findMany({
-        where: { createdBy: ownerID },
-        select: { id: true, firstName: true,lastName: true,paymentMethod:true,reason:true,createdOn:true },
-      })
-    //   console.log("patients : ",patient)
-      return patient
-
-    } catch {
-      throw "no one found"
-    }
-}
 
 export async function logout(request: Request) {
     const session = await getUserSession(request)

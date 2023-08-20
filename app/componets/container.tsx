@@ -7,6 +7,19 @@ import Button from "./button"
 import { useNavigate,NavLink} from "@remix-run/react"
 import { BsFillPersonPlusFill, BsFillEyeFill} from 'react-icons/bs'
 import ParentContainer from '~/componets/parentcontainer';
+import ColumnTag from "./PatientComponents/columntag"
+
+function getAge(year:string)
+{
+    const startTime = year.slice(year.length-4 ,year.length)
+    const current =  new Date().toDateString();
+    const current_year = current.slice(current.length-4 ,current.length)
+
+    const dob = +startTime
+    const today = +current_year
+
+    return today - dob
+}
 
 export default function Container(props: objType)
 {
@@ -20,30 +33,46 @@ export default function Container(props: objType)
     <div className=''>
         {
             props.data.map((patient)=>(
-                <ParentContainer key={patient.id} className={`bg-[#e6e6e6] ${props.className}`}>
-                    <ContainerBody className="flex-col md:w-[30%]">
-                        <p className="text-lg md:text-sm font-semibold leading-6 text-gray-900">
-                            {patient.firstName} {patient.lastName}
-                        </p>
-                        <p className="mt-1 text-sm md:text-xs leading-5 text-gray-700">
-                            {patient.reason}
-                       </p>
-                    </ContainerBody>
-                    <ContainerBody className="flex-row gap-4 md:w-[30%]">
-                        <p className="text-sm leading-6 text-gray-900 font-semibold">
-                            {patient.paymentMethod}
-                        </p>
-                       <p className="mt-1 truncate text-sm md:text-xs leading-5 text-gray-700">
-                            created on : {patient.createdOn}
-                        </p>
-                    </ContainerBody>
-                    <ContainerBody className="gap-4 md:justify-end md:place-content-end md:w-[30%]">
+                <ParentContainer key={patient.id} className={`bg-white ${props.className}`}>
+                    <ColumnTag
+                        className="flex-col md:w-[30%]"
+                         columnName="Name"
+                         columnNameColor="text-gray-500"
+                         columnDataColor="text-black"
+                         columnData={`${patient.firstName} ${patient.lastName}`}
+                         >
+                    </ColumnTag>
+                    <ColumnTag
+                        className="md:w-[15%]"
+                         columnName="Gender"
+                         columnNameColor="text-gray-500"
+                         columnDataColor="text-black"
+                         columnData={`${patient.gender}`}
+                         >
+                    </ColumnTag>
+                    <ColumnTag
+                        className="md:w-[15%]"
+                         columnName="Age"
+                         columnNameColor="text-gray-500"
+                         columnDataColor="text-black"
+                         columnData={`${getAge(patient.dob)}`}
+                         >
+                    </ColumnTag>
+                    <ColumnTag
+                        className="md:w-[15%]"
+                         columnName="P.Method"
+                         columnNameColor="text-gray-500"
+                         columnDataColor="text-black"
+                         columnData={`${patient.paymentMethod}`}
+                         >
+                    </ColumnTag>
+                    <ColumnTag className="md:w-[20%]">
                         <NavLink className="flex justify-center place-items-center bg-[#0068ff] w-[40%] rounded-md md:w-[80%] lg:w-[40%] h-9 md:h-9" to={`/patients_file/${patient.id}`}>
                             <Button className="text-white">
-                                    view file
+                                    Details
                             </Button> 
                         </NavLink>
-                    </ContainerBody>
+                    </ColumnTag>
                 </ParentContainer>
             ))
         }
