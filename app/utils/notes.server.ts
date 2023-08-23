@@ -42,6 +42,6 @@ export async function getNotes(ownerID: string,patientID: string)
       return patient
 
     } catch {
-      throw "no one found"
+      throw "no notes found"
     }
 }
