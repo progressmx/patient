@@ -13,10 +13,10 @@ type Props =
 
 function ColumnTag(props: Props) {
   return (
-    <ContainerBody className={`flex-col ${props.className}`}>
+    <ContainerBody className={`flex-row w-full md:flex-col ${props.className}`}>
        {props.columnName != null?
         <>
-            <p className={`text-lg hidden md:block md:text-sm font-semibold leading-6 ${props.columnNameColor}`}>
+            <p className={`text-lg block pr-4 md:pr-0 md:text-sm font-semibold leading-6 ${props.columnNameColor}`}>
                 {props.columnName}
             </p>
             <p className={`text-lg md:text-sm font-semibold leading-6 ${props.columnDataColor}`}>

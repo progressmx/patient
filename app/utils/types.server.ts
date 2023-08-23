@@ -1,3 +1,21 @@
+export type Bill = 
+{
+    name:string
+    userId: string,
+    patientId:string,
+}
+export type billItems = 
+{
+    name:string
+    code:string
+    quantity:number
+    price:number
+    modifiedby?:string
+    status?:string
+    userId: string,
+    billId:string,
+}
+
 export type RegisterForm = 
 {
     email : string,

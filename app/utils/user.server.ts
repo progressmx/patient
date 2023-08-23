@@ -1,6 +1,79 @@
-import type { PatientForm, RegisterForm,Vitals,Notes,Appointments } from "./types.server";
+import type { PatientForm, RegisterForm,Vitals,Notes,Appointments,Bill,billItems } from "./types.server";
 import { prisma } from "./prisma.server";
 import bcrypt from "bcryptjs";
+
+
+
+export async function createBill(bill: Bill)
+{
+    const joiDate =  new Date().toString();
+    const shortJoinDate = new Date(joiDate).toDateString()
+
+    const newPatient = await prisma.bill.create(
+        {
+            data:{
+                name: bill.name,
+                status: "active",
+                createdOn: shortJoinDate,
+                modifiedOn:shortJoinDate,
+                owner:
+                {
+                    connect:
+                    {
+                        id:bill.userId
+                    }
+                },
+                patient:
+                {
+                    connect:
+                    {
+                        id:bill.patientId
+                    }
+                }
+
+            }
+        }
+    )
+
+    return{id:newPatient.id}
+}
+export async function createBillItems(bill: billItems)
+{
+    const joiDate =  new Date().toString();
+    const shortJoinDate = new Date(joiDate).toDateString()
+
+    const newPatient = await prisma.billItems.create(
+        {
+            data:{
+                name: bill.name,
+                code: bill.code,
+                quantity: bill.quantity,
+                price: bill.price,
+                status: "active",
+                createdOn: shortJoinDate,
+                modifiedOn:shortJoinDate,
+                modifiedBy:bill.userId,
+                owner:
+                {
+                    connect:
+                    {
+                        id:bill.userId
+                    }
+                },
+                bill:
+                {
+                    connect:
+                    {
+                        id:bill.billId
+                    }
+                }
+
+            }
+        }
+    )
+
+    return{id:newPatient.id}
+}
 
 export async function createUser(user: RegisterForm)
 {

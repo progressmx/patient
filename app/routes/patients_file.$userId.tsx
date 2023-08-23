@@ -1,7 +1,7 @@
 import { Typography,Button,Dialog} from '@material-tailwind/react'
 import { useState } from 'react'
 import { LoaderFunction,} from "@remix-run/node";
-import { getPatients, requireUserId, registerPatient} from "~/utils/auth.server";
+import {requireUserId} from "~/utils/auth.server";
 import {ImLab} from 'react-icons/im'
 import {CiTempHigh} from 'react-icons/ci'
 import {AiOutlineCalculator} from 'react-icons/ai'
@@ -19,6 +19,9 @@ import SideNavContainer from '~/componets/sidenavcontainer';
 import Vitals from '~/componets/PatientComponents/vitals';
 import { setVitals,getVitals } from '~/utils/vitals.server';
 import { createNote ,getNotes} from "~/utils/notes.server";
+import { createBills, getBill, updateBillStatus } from '~/utils/bill.server';
+import BillList from '~/componets/PatientComponents/billList';
+import { getBillItems } from '~/utils/bilItems.server';
 
 const tabHead = [
   {
@@ -47,17 +50,14 @@ const patientComponets = [
   {
     label:"vitals",
     component:Vitals
+  },
+  {
+    label:"bill",
+    component:BillList
   }
 ]
 
 
-// export const loader: LoaderFunction = async({request, params})=>
-// {
-//   const userId = params.userId as string
-//   const id = +userId
-//   const patient = await getPatients(id)
-//   return json({patient})
-// }
 export const loader: LoaderFunction = async({request,params})=>
 {
   const patientId = params.userId as string
@@ -65,7 +65,25 @@ export const loader: LoaderFunction = async({request,params})=>
   const userId = await requireUserId(request)
   const vitals = await getVitals(userId, patientId)
   const notes = await getNotes(userId, patientId)
-  const data = json({vitals,notes})
+  const bill = await getBill(userId,patientId)
+
+  let billIds = []
+  
+  if(bill != null)
+  {
+    for (let index = 0; index < bill.length; index++) {
+      
+      billIds.push(bill[index].id)
+      
+    }
+  }
+
+  let billItems = []
+  for (let index = 0; index < billIds.length; index++) {
+      billItems.push(await getBillItems(userId, billIds[index]))
+  }
+  // const billItems = 
+  const data = json({vitals,notes,bill, billItems})
 
   return data
 }
@@ -123,7 +141,22 @@ export const action: ActionFunction = async ({request, params})=>
 
       return await setVitals({bloodPresure,height,temperature,weight,createdOn,userId,patientId })
   } 
- 
+  else if(action == "newBill")
+  {
+      let name = form.get("billName") as string
+
+      if(name.length <= 2)
+      {
+        return {message: "bill name should more than 2 characters"}
+      }
+      return await createBills({name,userId,patientId })
+  } 
+  else if(action == "deleteBill")
+  {
+      let billId = form.get("id") as string
+      const status = "deleted"
+      return await updateBillStatus(userId,billId,status)
+  } 
   else{
       
       return json({error:'Cannot access this page contact the Addmin for more information'},{status:400})

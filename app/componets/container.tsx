@@ -3,11 +3,13 @@ import type { objType } from "./types"
 import ContainerBody from "./containerbody"
 import {AiOutlineDelete, AiOutlineEdit} from "react-icons/ai"
 import { Typography} from "@material-tailwind/react"
-import Button from "./button"
+// import Button from "./button"
+import {Button} from "@material-tailwind/react"
 import { useNavigate,NavLink} from "@remix-run/react"
 import { BsFillPersonPlusFill, BsFillEyeFill} from 'react-icons/bs'
 import ParentContainer from '~/componets/parentcontainer';
 import ColumnTag from "./PatientComponents/columntag"
+import { redirect } from "@remix-run/node"
 
 function getAge(year:string)
 {
@@ -20,13 +22,18 @@ function getAge(year:string)
 
     return today - dob
 }
+// function gotTo(url:string)
+// {
+//     return redirect(url)
+// }
 
 export default function Container(props: objType)
 {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(!open);
-    const navigate = useNavigate()
-    const numberofPatients = props.data.length
+    const [id, setID] = useState("");
+    const ChangeID = () => setID(id);
+
+
+    const goToDetails = ()=>{return redirect("/patients_file/"+id)}
 
   return (
 
@@ -35,7 +42,7 @@ export default function Container(props: objType)
             props.data.map((patient)=>(
                 <ParentContainer key={patient.id} className={`bg-white ${props.className}`}>
                     <ColumnTag
-                        className="flex-col md:w-[30%]"
+                        className="md:w-[30%]"
                          columnName="Name"
                          columnNameColor="text-gray-500"
                          columnDataColor="text-black"
@@ -66,13 +73,18 @@ export default function Container(props: objType)
                          columnData={`${patient.paymentMethod}`}
                          >
                     </ColumnTag>
-                    <ColumnTag className="md:w-[20%]">
-                        <NavLink className="flex justify-center place-items-center bg-[#0068ff] w-[40%] rounded-md md:w-[80%] lg:w-[40%] h-9 md:h-9" to={`/patients_file/${patient.id}`}>
-                            <Button className="text-white">
-                                    Details
+                    <ContainerBody className="flex-row md:justify-center md:place-items-center gap-4 md:w-[30%] mt-4 md:mt-0">
+                        <NavLink to={`/patients_file/${patient.id}`}>
+                           <Button variant="outlined" className="text-black">
+                                view
                             </Button> 
                         </NavLink>
-                    </ColumnTag>
+                        <NavLink to="">
+                            <Button variant="outlined" className="text-black">
+                                Edit
+                            </Button>
+                        </NavLink>
+                    </ContainerBody>
                 </ParentContainer>
             ))
         }
