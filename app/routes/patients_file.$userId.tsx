@@ -21,7 +21,7 @@ import { setVitals,getVitals } from '~/utils/vitals.server';
 import { createNote ,getNotes} from "~/utils/notes.server";
 import { createBills, getBill, updateBillStatus } from '~/utils/bill.server';
 import BillList from '~/componets/PatientComponents/billList';
-import { getBillItems } from '~/utils/bilItems.server';
+import { createbillItems, getBillItems } from '~/utils/bilItems.server';
 
 const tabHead = [
   {
@@ -82,7 +82,7 @@ export const loader: LoaderFunction = async({request,params})=>
   for (let index = 0; index < billIds.length; index++) {
       billItems.push(await getBillItems(userId, billIds[index]))
   }
-  // const billItems = 
+  // console.log(billItems[0])
   const data = json({vitals,notes,bill, billItems})
 
   return data
@@ -140,6 +140,20 @@ export const action: ActionFunction = async ({request, params})=>
       const createdOn= new Date(joiDate).toDateString()
 
       return await setVitals({bloodPresure,height,temperature,weight,createdOn,userId,patientId })
+  } 
+  else if(action == "billitems")
+  {
+      let name = form.get("name") as string
+      let code = form.get("code") as string
+      let quantityString = form.get("quantity") as string
+      let priceString = form.get('price') as string
+      let billId = form.get('billId') as string
+      const quantity = +quantityString
+      const price = +priceString
+      const modifiedby = userId
+      
+      console.log("new items added : ")
+      return await createbillItems({name,code,quantity,price,userId,billId,modifiedby})
   } 
   else if(action == "newBill")
   {

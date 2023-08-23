@@ -10,11 +10,14 @@ import BillDeleteModal from './billDeleteModal';
 
 type Children = 
 {
+    billid:string
     data:
     {
         id:number
         name:string,
-        createdOn:string
+        code:string,
+        quantity:string
+        price:string,
         status:string
     }[]
 }
@@ -37,19 +40,35 @@ function BillItemsList(props:Children) {
 
                     <ParentContainer key={bill.id} className='bg-white mx-auto w-full'>
                         <ColumnTag
+                            className="md:w-[10%]"
+                            columnName="code"
+                            columnNameColor="text-gray-500"
+                            columnDataColor="text-black"
+                            columnData={`${bill.code}`}
+                            >
+                        </ColumnTag>
+                        <ColumnTag
                             className="md:w-[30%]"
-                            columnName="bill Name"
+                            columnName="description"
                             columnNameColor="text-gray-500"
                             columnDataColor="text-black"
                             columnData={`${bill.name}`}
                             >
                         </ColumnTag>
                         <ColumnTag
-                            className="md:w-[30%]"
-                            columnName="created on"
+                            className="md:w-[10%]"
+                            columnName="quantity"
                             columnNameColor="text-gray-500"
                             columnDataColor="text-black"
-                            columnData={`${bill.createdOn}`}
+                            columnData={`${bill.quantity}`}
+                            >
+                        </ColumnTag>
+                        <ColumnTag
+                            className="md:w-[10%]"
+                            columnName="price"
+                            columnNameColor="text-gray-500"
+                            columnDataColor="text-black"
+                            columnData={`${bill.price}`}
                             >
                         </ColumnTag>
                         <ContianerBody className="flex-row md:justify-center md:place-items-center gap-4 md:w-[30%] mt-4 md:mt-0">
