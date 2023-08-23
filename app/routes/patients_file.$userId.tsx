@@ -64,25 +64,26 @@ export const loader: LoaderFunction = async({request,params})=>
   const userId = await requireUserId(request)
   const vitals = await getVitals(userId, patientId)
   const notes = await getNotes(userId, patientId)
-  const bill = await getBill(userId,patientId)
+  // const bill = await getBill(userId,patientId)
 
-  let billIds = []
+  // let billIds = []
   
-  if(bill != null)
-  {
-    for (let index = 0; index < bill.length; index++) {
+  // if(bill != null)
+  // {
+  //   for (let index = 0; index < bill.length; index++) {
       
-      billIds.push(bill[index].id)
+  //     billIds.push(bill[index].id)
       
-    }
-  }
+  //   }
+  // }
 
-  let billItems = []
-  for (let index = 0; index < billIds.length; index++) {
-      billItems.push(await getBillItems(userId, billIds[index]))
-  }
-  // console.log(billItems[0])
-  const data = json({vitals,notes,bill, billItems})
+  // let billItems = []
+  // for (let index = 0; index < billIds.length; index++) {
+  //     billItems.push(await getBillItems(userId, billIds[index]))
+  // }
+  // // console.log(billItems[0])
+  // const data = json({vitals,notes,bill, billItems})
+  const data = json({vitals,notes})
 
   return data
 }
