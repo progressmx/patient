@@ -46,7 +46,7 @@ type Children =
     type?:string
     data:
     {
-        id: number
+        id: string
         firstName: string,
         lastName: string,
         reason: string
@@ -139,12 +139,12 @@ function AppointmentList(props:Children) {
                                 }
                             </>
                         :
-                            <ContianerBody className='bg-[#0068ff]'>
+                            <ContianerBody>
                                 <Form method="post">
                                     <input type="hidden" name="status" value="cancelled"/>
                                         <input type="hidden" name="appointmentID" value={`${appointment.id}`}/>
                                         <input type="hidden" name="action" value="updateStatus"/>
-                                    <Button type='submit' className="flex bg-transparent flex-row gap-2 justify-center place-items-center text-lg md:text-sm font-semibold leading-6 text-white">
+                                    <Button type='submit' className=" flex bg-transparent bg-[#0068ff] flex-row gap-2 justify-center place-items-center text-lg md:text-sm font-semibold leading-6 text-white">
                                         <ImCancelCircle className='w-5 h-5'/> cancel
                                     </Button>
                                 </Form>

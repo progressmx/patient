@@ -41,7 +41,7 @@ export async function createBillItems(bill: billItems)
 {
     const joiDate =  new Date().toString();
     const shortJoinDate = new Date(joiDate).toDateString()
-    const statusActive = "active
+
     const newPatient = await prisma.billItems.create(
         {
             data:{
@@ -49,7 +49,7 @@ export async function createBillItems(bill: billItems)
                 code: bill.code,
                 quantity: bill.quantity,
                 price: bill.price,
-                status: statusActive,
+                status: "active",
                 createdOn: shortJoinDate,
                 modifiedOn:shortJoinDate,
                 modifiedBy:bill.userId,
@@ -95,7 +95,7 @@ export async function createPatient(patient: PatientForm)
 {
     const joiDate =  new Date().toString();
     const shortJoinDate = new Date(joiDate).toDateString()
-    const statusActive = "active"
+
     const newPatient = await prisma.patient.create(
         {
             data:{
@@ -105,7 +105,7 @@ export async function createPatient(patient: PatientForm)
                 idNumber:patient.idNumber,
                 phone:patient.contact, 
                 dob:patient.dobStr,
-                status: statusActive,
+                status: "active",
                 createdOn: shortJoinDate, 
                 reason:patient.reason, 
                 paymentMethod:patient.payment,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ParentContainer from '../parentcontainer'
 import ColumnTag from './columntag'
-import { Form, NavLink } from '@remix-run/react'
+import { Form, NavLink, useLoaderData } from '@remix-run/react'
 import { Button } from '@material-tailwind/react'
 import ContianerBody from '../containerbody'
 import Dialog from '../dialog'
@@ -24,6 +24,8 @@ export default function BillContainer(props:Children) {
     const [open, setOpen] = useState(false);
     const handleDialog = () => setOpen(!open);
 
+    const {billItems} = useLoaderData()
+    
     const [openDialog, setOpenDialog] = useState(false);
     const handleBillDialog = () => setOpenDialog(!openDialog);
     const id = 0
@@ -52,6 +54,14 @@ export default function BillContainer(props:Children) {
                             columnData={`${bill.createdOn}`}
                             >
                         </ColumnTag>
+                        {/* <ColumnTag
+                            className="md:w-[30%]"
+                            columnName="items billed"
+                            columnNameColor="text-gray-500"
+                            columnDataColor="text-black"
+                            columnData={`${billItems[0].length}`}
+                            >
+                        </ColumnTag> */}
                         <ContianerBody className="flex-row md:justify-center md:place-items-center gap-4 md:w-[30%] mt-4 md:mt-0">
                             <Form>
                             <Button onClick={handleBillDialog} size='sm' variant="outlined" className="text-black">
