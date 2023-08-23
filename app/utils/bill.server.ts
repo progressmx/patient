@@ -41,7 +41,7 @@ export async function getBill(ownerID: string,patientID: string)
       return bill
 
     } catch {
-      throw "no one found"
+      throw "no bill found"
     }
 }
 export async function updateBillStatus(ownerID: string, billId:string,status:string)
@@ -61,6 +61,6 @@ export async function updateBillStatus(ownerID: string, billId:string,status:str
       }
       return null
     } catch {
-      throw "no one found"
+      throw "something went wrong  in updating bill"
     }
 }
