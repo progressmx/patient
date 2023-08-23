@@ -81,7 +81,7 @@ export const loader: LoaderFunction = async({request,params})=>
   for (let index = 0; index < billIds.length; index++) {
       billItems.push(await getBillItems(userId, billIds[index]))
   }
-  // console.log(billItems[0])
+  console.log(userID)
   const data = json({vitals,notes,bill, billItems})
 
   return data
