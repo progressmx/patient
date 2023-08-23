@@ -41,6 +41,6 @@ export async function getVitals(ownerID: string,patientID: string)
       return patient
 
     } catch {
-      throw "no one found"
+       return {message: "no one found"}
     }
 }
