@@ -41,7 +41,7 @@ export async function getBill(ownerID: string,patientID: string)
       return bill
 
     } catch {
-      throw "no bill found"
+      throw `no bill found for userID : ${ownerID} and patientid: ${$patientID}`
     }
 }
 export async function updateBillStatus(ownerID: string, billId:string,status:string)
