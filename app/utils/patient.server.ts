@@ -59,6 +59,6 @@ export async function updatePatientStatus(ownerID: string, patientID:string,stat
       return appointments
 
     } catch {
-      throw "no one found"
+      throw "cannot update patient status"
     }
 }
