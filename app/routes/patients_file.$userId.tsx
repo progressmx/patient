@@ -62,6 +62,8 @@ export const loader: LoaderFunction = async({request,params})=>
 {
   const patientId = params.userId as string
   const userId = await requireUserId(request)
+  console.log(userID)
+  
   const vitals = await getVitals(userId, patientId)
   const notes = await getNotes(userId, patientId)
   const bill = await getBill(userId,patientId)
@@ -81,7 +83,6 @@ export const loader: LoaderFunction = async({request,params})=>
   for (let index = 0; index < billIds.length; index++) {
       billItems.push(await getBillItems(userId, billIds[index]))
   }
-  console.log(userID)
   const data = json({vitals,notes,bill, billItems})
 
   return data
