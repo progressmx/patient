@@ -62,7 +62,7 @@ export const loader: LoaderFunction = async({request,params})=>
 {
   const patientId = params.userId as string
   const userId = await requireUserId(request)
-  console.log(userID)
+  console.log(userId)
   
   const vitals = await getVitals(userId, patientId)
   const notes = await getNotes(userId, patientId)
